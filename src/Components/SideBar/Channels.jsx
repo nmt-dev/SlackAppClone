@@ -10,7 +10,9 @@ function Channels() {
       <div className={styles.contain}>
         <ul className={styles.list}>
           {channelsArray.map((item, i) => (
-            <li key={i}>{item}</li>
+            <li className={styles.channellist} key={i}>
+              {item}
+            </li>
           ))}
         </ul>
       </div>

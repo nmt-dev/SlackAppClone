@@ -1,12 +1,26 @@
-@use "../../Sass/main.scss";
-@use "../../Sass/variables";
+@import "../../Sass/main.scss";
+@import "../../Sass/variables";
 
 .contain {
   width: 100%;
   display: flex;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
 }
 
 .list {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  width: 100%;
+}
+.channellist {
+  width: 100%;
+  cursor: pointer;
+  padding: 1px;
+}
+
+.channellist:hover {
+  background-color: rgb(39, 36, 44);
 }
