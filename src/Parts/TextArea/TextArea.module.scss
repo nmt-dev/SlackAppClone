@@ -17,11 +17,10 @@
 .textarea {
   width: 95%;
   overflow-y: hidden;
-  background-color: transparent;
+  background-color: $text-area;
   color: $text-color;
   border-radius: 4px;
   resize: none;
-  outline: 0;
 }
 
 .textarea:focus::placeholder {
