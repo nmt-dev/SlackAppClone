@@ -1,0 +1,31 @@
+@import "../../Sass/main.scss";
+@import "../../Sass/variables";
+
+.contain {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+#history,
+#question,
+.logocontain {
+  position: absolute;
+  top: 8px;
+  color: $text-color;
+  cursor: pointer;
+}
+
+#history {
+  left: 350px;
+}
+
+#question {
+  right: 45px;
+}
+
+.logocontain {
+  right: 10px;
+  width: 2%;
+  border-radius: 8px;
+}

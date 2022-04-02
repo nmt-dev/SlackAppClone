@@ -1,0 +1,41 @@
+@import "../../Sass/variables";
+@import "../../Sass/main";
+
+.contain {
+  margin: auto;
+  width: 48%;
+}
+
+.searchbar {
+  background-color: rgb(56, 55, 60);
+  border-radius: 4px;
+  color: $text-color;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  overflow-y: hidden;
+  width: 97%;
+  cursor: pointer;
+  float: left;
+}
+
+.searchbar:focus::placeholder {
+  color: transparent;
+}
+
+.searchbutton {
+  background-color: rgb(56, 55, 60);
+  border-radius: 4px;
+  cursor: pointer;
+  outline: 0;
+  width: 18px;
+  cursor: pointer;
+  position: absolute;
+  right: 430px;
+  top: 12px;
+}
+
+#i {
+  font-size: 12px;
+  padding: 5px;
+}
