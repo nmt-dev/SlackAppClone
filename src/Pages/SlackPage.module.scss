@@ -1,0 +1,34 @@
+@import "../Sass/main.scss";
+@import "../Sass/variables";
+
+.contain {
+  width: 100%;
+  height: 100%;
+  background-color: $mainpage-color;
+  overflow: hidden;
+  display: grid;
+  color: $text-color;
+  grid-template-columns: 1fr 6fr;
+  grid-template-rows: 1fr 13fr 2fr;
+  grid-template-areas:
+    "top top"
+    "side main"
+    "side textarea";
+}
+.topbar {
+  grid-area: top;
+  background-color: $topbar-color;
+}
+
+.sidebar {
+  grid-area: side;
+  background-color: $sidebar-color;
+}
+.messagehistory {
+  grid-area: main;
+  background-color: $mainpage-color;
+}
+
+.textarea {
+  grid-area: textarea;
+}
