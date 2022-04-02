@@ -6,7 +6,9 @@ function SideBar() {
   return (
     <>
       <div className={styles.main}>
+        <p className={styles.headers}>Channels</p>
         <Channels />
+        <p className={styles.headers}>Direct Message</p>
       </div>
     </>
   );

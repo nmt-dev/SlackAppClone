@@ -15,19 +15,19 @@ function TopBarLanding() {
         />
         <div className={styles.navbar}>
           <ul>
-            <li>
+            <li className={styles.li}>
               <i className="las la-home"></i>HOME
             </li>
-            <li>
+            <li className={styles.li}>
               <i className="las la-tools"></i>SERVICES
             </li>
-            <li>
+            <li className={styles.li}>
               <i className="las la-dollar-sign"></i>PRICING
             </li>
-            <li>
+            <li className={styles.li}>
               <i className="las la-phone"></i>CONTACT
             </li>
-            <li>
+            <li className={styles.li}>
               <Btn className={styles.button} content={"Get Started"} />
             </li>
           </ul>

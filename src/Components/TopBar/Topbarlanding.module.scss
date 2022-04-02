@@ -30,7 +30,7 @@ ul {
   justify-content: flex-end;
   list-style: none;
 }
-li {
+.li {
   display: flex;
   align-items: center;
   padding: 10px;
@@ -38,7 +38,7 @@ li {
     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-li:not(:last-child):hover {
+.li:not(:last-child):hover {
   transform: scale(1.1);
   cursor: pointer;
 }
