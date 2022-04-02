@@ -1,0 +1,52 @@
+@import "../../Sass/main.scss";
+@import "../../Sass/variables";
+
+.contain {
+  display: block;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+.formtextarea {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+.textarea {
+  width: 95%;
+  overflow-y: hidden;
+  background-color: transparent;
+  color: $text-color;
+  border-radius: 4px;
+  resize: none;
+  outline: 0;
+}
+
+.textarea:focus::placeholder {
+  color: transparent;
+}
+
+.sendbutton {
+  background-color: $evenhandlers-color;
+  border-radius: 4px;
+  box-shadow: 5px 5px 25px 1px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  outline: 0;
+  transition: 0.3s linear;
+}
+.sendbutton:hover {
+  cursor: pointer;
+}
+.sendbutton:active {
+  cursor: pointer;
+  transform: scale(0.9);
+}
+.sendbutton:focus {
+  border: 1px solid $text-color;
+}
+i {
+  font-size: 24px;
+  padding: 5px;
+}
