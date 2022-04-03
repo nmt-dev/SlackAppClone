@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Btn from "../General/Button";
 import styles from "./Channels.module.scss";
 
 function Channels() {
@@ -11,7 +12,11 @@ function Channels() {
         <ul className={styles.list}>
           {channelsArray.map((item, i) => (
             <li className={styles.channellist} key={i}>
-              {item}
+              <p className={styles.itemchannel}>{item}</p>
+              <Btn
+                className={styles.button}
+                content={<i class="las la-times"></i>}
+              />
             </li>
           ))}
         </ul>

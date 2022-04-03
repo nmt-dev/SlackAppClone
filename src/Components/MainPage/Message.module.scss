@@ -1,0 +1,56 @@
+@import "../../Sass/variables";
+@import "../../Sass/main.scss";
+
+.contain {
+  padding-left: 15px;
+  width: 100%;
+  height: auto;
+  color: $text-color;
+  font-family: $font-style;
+  display: grid;
+  grid-template-columns: 1fr 30fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "pic sendertime"
+    "pic message";
+  grid-column-gap: 8px;
+}
+
+.contain:hover {
+  background-color: rgb(39, 36, 44);
+}
+.imgcontain {
+  grid-area: pic;
+  width: 35px;
+  align-self: center;
+  justify-self: center;
+}
+
+.sendertime {
+  grid-area: sendertime;
+  display: flex;
+  align-items: center;
+}
+.sender {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.ttime {
+  font-size: 12px;
+  padding-left: 6px;
+}
+
+.sender:hover,
+.ttime:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.ddate {
+  font-size: 13px;
+}
+
+.textmessage {
+  font-size: 15px;
+  cursor: context-menu;
+}
