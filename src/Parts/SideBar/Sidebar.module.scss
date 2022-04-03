@@ -3,11 +3,43 @@
 
 .main {
   color: $text-color;
-  opacity: 0.5;
 }
-.headers {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+.channelheader,
+.dmheader {
+  font-family: $font-style;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  width: 100%;
+}
+
+.textheader {
+  opacity: 0.8;
+}
+
+#drop {
+  opacity: 0.8;
+  border-radius: 4px;
+  font-size: 14px;
+  padding: 10px;
+  transform: rotate(-90deg);
+}
+#drop:hover:active {
+  background-color: rgb(32, 33, 36);
+}
+#drop:active {
+  transform: rotate(0deg);
+}
+.button {
+  background-color: transparent;
+  border: none;
+  outline: 0;
+  color: white;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.button:hover {
+  opacity: 1;
 }
