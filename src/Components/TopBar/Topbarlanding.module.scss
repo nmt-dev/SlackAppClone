@@ -35,11 +35,14 @@ ul {
   align-items: center;
   padding: 10px;
   font-family: $font-style;
+  font-size: 12px;
 }
 
 .li:not(:last-child):hover {
   transform: scale(1.1);
   cursor: pointer;
+  color: $evenhandlers-color;
+  font-weight: bold;
 }
 
 .button {

@@ -5,7 +5,7 @@ function Company() {
   return (
     <div className={styles.contain}>
       <h1 className={styles.textcompany}>Any Company</h1>
-      <i id={styles.write} class="lab la-rocketchat"></i>
+      <i id={styles.write} class="las la-comment-dots"></i>
     </div>
   );
 }

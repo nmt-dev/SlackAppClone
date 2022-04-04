@@ -1,0 +1,45 @@
+@import "../../Sass/variables";
+@import "../../Sass/variables";
+
+.contain {
+  width: 98%;
+  height: 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 13px;
+  border-bottom: thin whitesmoke solid;
+}
+.imgname {
+  display: flex;
+  width: auto;
+  align-items: center;
+  padding-right: 5px;
+}
+.imgname:hover {
+  background-color: rgb(39, 36, 44);
+  border-radius: 4px;
+}
+
+.textkausap {
+  color: $text-color;
+  font-family: $font-style;
+  font-size: 20px;
+}
+
+.imgcontain {
+  width: 30px;
+  align-self: center;
+  justify-self: center;
+  padding: 5px;
+}
+#call {
+  font-size: 18px;
+  opacity: 0.5;
+}
+
+#call:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  opacity: 1;
+}
