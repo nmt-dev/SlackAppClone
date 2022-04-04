@@ -18,17 +18,17 @@
 
 .textcompany {
   color: $text-color;
-  font-size: 16px;
+  font-size: 20px;
 }
 
 #write {
   font-size: 35px;
   padding-right: 15px;
   opacity: 0.8;
+  color: $evenhandlers-color;
 }
 
 #write:hover {
-  color: $evenhandlers-color;
   opacity: 1;
   transform: scale(1.1);
 }

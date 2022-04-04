@@ -5,6 +5,7 @@ import Btn from "../Components/General/Button";
 import Img from "../Components/General/Img";
 import team from "../Assets/Images/team.png";
 import styles from "../Pages/LandingPage.module.scss";
+import UserLogin from "../Components/Login/Login";
 
 function LandingPage() {
   return (
@@ -18,6 +19,9 @@ function LandingPage() {
       </p>
       <Btn className={styles.button1} content={"Get Started"} />
       <Btn className={styles.button} content={"SIGN IN"} />
+      <div className={styles.login}>
+        <UserLogin />
+      </div>
       <Img logocontainerclassname={styles.imgcontainer} link={team} />
     </div>
   );
