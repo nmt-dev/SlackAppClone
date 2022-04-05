@@ -40,9 +40,9 @@ body {
   font-family: "Patrick Hand", cursive;
   border-radius: 4px;
   appearance: none;
-  background-color: $text-color;
+  background-color: $evenhandlers-color;
   border-width: 1px;
-  color: $evenhandlers-color;
+  color: $text-color;
   cursor: pointer;
   padding: 0.5em 2em;
   position: relative;
