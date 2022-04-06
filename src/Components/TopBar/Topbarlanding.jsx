@@ -1,10 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Btn from "../General/Button";
 import Logo from "../General/Logo";
 import logo from "../../Assets/Images/SlackLogo.png";
 import styles from "./Topbarlanding.module.scss";
 
 function TopBarLanding() {
+  const navigate = useNavigate();
+  function signUp() {
+    navigate("/SignUp");
+  }
+
   return (
     <>
       <div className={styles.topbarcontainer}>
@@ -28,7 +34,11 @@ function TopBarLanding() {
               <i className="las la-phone"></i>CONTACT
             </li>
             <li className={styles.li}>
-              <Btn className={styles.button} content={"Get Started"} />
+              <Btn
+                onClick={signUp}
+                className={styles.button}
+                content={"Get Started"}
+              />
             </li>
           </ul>
         </div>

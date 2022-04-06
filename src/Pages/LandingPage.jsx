@@ -1,13 +1,20 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import TopBarLanding from "../Components/TopBar/Topbarlanding";
 import Btn from "../Components/General/Button";
 import Img from "../Components/General/Img";
 import team from "../Assets/Images/team.png";
 import styles from "../Pages/LandingPage.module.scss";
-import UserLogin from "../Components/Login/Login";
 
 function LandingPage() {
+  const navigate = useNavigate();
+  function logIn() {
+    navigate("/LogIn");
+  }
+  function signUp() {
+    navigate("/SignUp");
+  }
   return (
     <div className={styles.main}>
       <TopBarLanding />
@@ -17,11 +24,12 @@ function LandingPage() {
         Transform the way you work with one place for everyone and everything
         you need to get stuff done.
       </p>
-      <Btn className={styles.button1} content={"Get Started"} />
-      <Btn className={styles.button} content={"SIGN IN"} />
-      <div className={styles.login}>
-        <UserLogin />
-      </div>
+      <Btn
+        onClick={signUp}
+        className={styles.button1}
+        content={"Get Started"}
+      />
+      <Btn onClick={logIn} className={styles.button} content={"SIGN IN"} />
       <Img logocontainerclassname={styles.imgcontainer} link={team} />
     </div>
   );
