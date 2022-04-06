@@ -5,15 +5,14 @@ import { buildStyles } from "react-circular-progressbar";
 import styles from "./Success.module.scss";
 
 import "react-circular-progressbar/dist/styles.css";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Success() {
   const navigate = useNavigate();
   useEffect(() => {
-    // Start counting when the page is loaded
     setTimeout(() => {
       navigate("/logIn");
-    }, 5500);
+    }, 6000);
   });
 
   return (
