@@ -32,33 +32,71 @@
 .error {
   color: red;
   font-size: 0.75em;
+  position: relative;
 }
 .inputicon {
   display: flex;
   align-items: center;
   padding: 5px;
 }
-#icons {
+
+#icons,
+#iconserror {
   padding: 10px;
   background: white;
-  color: $evenhandlers-color;
   text-align: center;
-  outline: none;
   border-radius: 0px 4px 4px 0px;
 }
-
-.inputfield {
-  padding: 10px;
+#icons {
+  color: $evenhandlers-color;
   outline: none;
+}
+
+#iconserror {
+  color: red;
+  outline: solid red 1px;
+}
+
+.inputfield,
+.inputfielderror {
+  padding: 10px;
   border-radius: 4px 0px 0px 4px;
   border: none;
+}
+.inputfield {
+  outline: none;
+}
+
+.inputfielderror {
+  outline: solid red 1px;
 }
 
 .inputfield:focus {
   border: 2px solid $evenhandlers-color;
 }
+#h6 {
+  position: relative;
+  top: 20px;
+  right: 105px;
+}
 
+h1 {
+  position: relative;
+  right: 25px;
+  bottom: 10px;
+}
+.mat {
+  color: $evenhandlers-color;
+  cursor: pointer;
+}
+.login:hover {
+  color: $evenhandlers-color;
+  cursor: pointer;
+}
 .button {
+  position: relative;
+  top: 10px;
+  left: 40px;
   background-color: $evenhandlers-color;
   border-radius: 100px;
   box-shadow: rgba(44, 187, 99, 0.2) 0 -25px 18px -14px inset,
