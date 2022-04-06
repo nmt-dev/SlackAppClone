@@ -8,6 +8,7 @@ import TopBarLanding from "../TopBar/Topbarlanding";
 import { useNavigate } from "react-router-dom";
 import API from "../../Utils/API";
 import Success from "../Success";
+import { useEffect } from "react";
 
 function SignUp() {
   const [email, setEmail] = useState("");
@@ -19,6 +20,19 @@ function SignUp() {
   const [showPassword, setShowPassword] = useState("password");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  // const [value, setValue] = useState("checking value...");
+  // useEffect(() => {
+  //   let isMounted = true;
+  //   fetchValue().then(() => {
+  //     if (isMounted) {
+  //       setValue("done!"); // no more error
+  //     }
+  //   });
+  //   return () => {
+  //     isMounted = false;
+  //   };
+  // }, []);
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
