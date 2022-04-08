@@ -21,19 +21,6 @@ function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  // const [value, setValue] = useState("checking value...");
-  // useEffect(() => {
-  //   let isMounted = true;
-  //   fetchValue().then(() => {
-  //     if (isMounted) {
-  //       setValue("done!"); // no more error
-  //     }
-  //   });
-  //   return () => {
-  //     isMounted = false;
-  //   };
-  // }, []);
-
   const HandleSubmit = async (e) => {
     e.preventDefault();
     if (password === password_confirm) {
@@ -75,7 +62,14 @@ function SignUp() {
 
   return (
     <>
-      {isLoading && <Success />}
+      {isLoading && (
+        <Success
+          content={"Congratulations!"}
+          success={"Create user account successfull"}
+          redirect={"Redirecting to Log In Page"}
+          page={"LogIn"}
+        />
+      )}
       <TopBarLanding />
       <div className={styles.container}>
         <div className={styles.signupcontainer}>

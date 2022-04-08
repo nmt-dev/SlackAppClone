@@ -7,20 +7,20 @@ import styles from "./Success.module.scss";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate } from "react-router-dom";
 
-function Success() {
+function Success({ content, redirect, success, page }) {
   const navigate = useNavigate();
   useEffect(() => {
     setTimeout(() => {
-      navigate("/logIn");
-    }, 6000);
+      navigate(`/${page}`);
+    }, 5500);
   });
 
   return (
     <div className={styles.modal}>
       <div className={styles.modal_content}>
         <div className={styles.congrats}>
-          <h2>Congratulations!</h2>
-          <h3>Your account has been successfully created.</h3>
+          <h2>{content}</h2>
+          <h3>{success}</h3>
         </div>
         <div className={styles.progress}>
           <ChangingProgressProvider values={[0, 20, 40, 60, 80, 100]}>
@@ -36,7 +36,7 @@ function Success() {
               />
             )}
           </ChangingProgressProvider>
-          <h4>Redirecting to Log In page</h4>
+          <h4>{redirect}</h4>
         </div>
       </div>
     </div>

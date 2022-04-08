@@ -3,14 +3,32 @@ import Input from "../General/Input";
 import styles from "./Login.module.scss";
 import Btn from "../General/Button";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import API from "../../Utils/API";
+import { useContext } from "react";
+import AuthContext from "../../Routes/AuthProvider";
 
 //<i class="las la-eye"></i>
-function UserLogin() {
+function UserLogin({ auth, setAuth }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
 
-  function HandleSubmit() {}
+  const HandleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await API.post("/auth/sign_in", {
+      email,
+      password,
+    }).catch((error) => {
+      console.log(error.response.data.errors);
+      setPasswordError(error.response.data.errors);
+    });
+    if (response.status === 200) {
+      console.log(response.status);
+      setAuth(!null);
+    }
+  };
   function Home() {
     navigate("/");
   }
@@ -23,7 +41,7 @@ function UserLogin() {
             MatSlack
           </span>
         </h1>
-        <form>
+        <form onSubmit={HandleSubmit}>
           <div className={styles.inputicon}>
             <i id={styles.icons} class="las la-envelope"></i>
             <Input
@@ -42,7 +60,7 @@ function UserLogin() {
               className={styles.inputfield}
               type={"password"}
               placeholder={"Password"}
-              error={""}
+              error={passwordError}
               errorclassname={styles.error}
               onChange={(e) => setPassword(e.target.value)}
               value={password}

@@ -57,6 +57,8 @@ h6:hover {
 .error {
   color: red;
   font-size: 0.75em;
+  position: fixed;
+  right: 400px;
 }
 .inputicon {
   display: flex;
@@ -84,8 +86,8 @@ h6:hover {
 }
 
 #eye {
-  position: relative;
-  right: 40px;
+  position: fixed;
+  right: 650px;
   cursor: pointer;
 }
 
