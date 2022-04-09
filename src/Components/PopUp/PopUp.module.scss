@@ -1,0 +1,49 @@
+@import "../../Sass/variables";
+@import "../../Sass/main.scss";
+
+.contain {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  color: black;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  width: 30%;
+  height: 7%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 8px;
+}
+.pmform {
+  display: flex;
+  justify-content: space-around;
+}
+
+.list {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  background-color: pink;
+}
+.label {
+  font-family: $font-style;
+}
+
+#close {
+  font-size: 20px;
+  position: relative;
+  bottom: 15px;
+  left: 45px;
+  color: $evenhandlers-color;
+  cursor: pointer;
+  border-radius: 50%;
+}
