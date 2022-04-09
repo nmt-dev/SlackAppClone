@@ -8,12 +8,15 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import UserLogin from "./Components/Login/Login";
 import { useState } from "react";
 import Success from "./Components/Success";
+import { UserContext } from "./Context/UserContext";
+import { ChannelsContext } from "./Context/ChannelsContext";
 
 function App() {
   const [auth, setAuth] = useState(null);
-  // const functSetAuth = () => {
-  //   setAuth(!null);
-  // };
+
+  const [userHeaders, setUserHeaders] = useState();
+  const value = { userHeaders, setUserHeaders };
+
   return (
     <>
       <Routes>
@@ -37,7 +40,9 @@ function App() {
           path="/LogIn"
           element={
             <PublicRoute auth={auth}>
-              <UserLogin auth={auth} setAuth={setAuth} />
+              <UserContext.Provider value={value}>
+                <UserLogin auth={auth} setAuth={setAuth} />
+              </UserContext.Provider>
             </PublicRoute>
           }
         />
@@ -46,7 +51,9 @@ function App() {
           path="/SlackPage"
           element={
             <PrivateRoute auth={auth}>
-              <SlackPage />
+              <UserContext.Provider value={value}>
+                <SlackPage />
+              </UserContext.Provider>
             </PrivateRoute>
           }
         />

@@ -8,7 +8,6 @@ import TopBarLanding from "../TopBar/Topbarlanding";
 import { useNavigate } from "react-router-dom";
 import API from "../../Utils/API";
 import Success from "../Success";
-import { useEffect } from "react";
 
 function SignUp() {
   const [email, setEmail] = useState("");
