@@ -4,7 +4,12 @@ import profilepic from "../../Assets/Images/profilepic.png";
 import SearchBar from "../../Components/TopBar/SearchBar";
 import styles from "../TopBar/TopBar.module.scss";
 
+import { useContext } from "react";
+import { UserContext } from "../../Context/UserContext";
+import nameFormatter from "../../Utils/Nameformatter";
+
 function TopBar() {
+  const { userHeaders, setUserHeaders } = useContext(UserContext);
   return (
     <>
       <div className={styles.contain}>
@@ -12,6 +17,9 @@ function TopBar() {
         <SearchBar />
         <i id={styles.question} class="lar la-question-circle"></i>
         <Logo link={profilepic} logocontainerclassname={styles.logocontain} />
+        <p className={styles.username}>
+          Hello {nameFormatter(userHeaders.uid)}!
+        </p>
       </div>
     </>
   );

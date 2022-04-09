@@ -10,12 +10,23 @@ import { useState } from "react";
 import Success from "./Components/Success";
 import { UserContext } from "./Context/UserContext";
 import { ChannelsContext } from "./Context/ChannelsContext";
+import { OpennerContext } from "./Context/OpennerContext";
+import { UsersContext } from "./Context/UsersContext";
 
 function App() {
   const [auth, setAuth] = useState(null);
 
+  //signin headers
   const [userHeaders, setUserHeaders] = useState();
   const value = { userHeaders, setUserHeaders };
+
+  //popup isopen
+  const [isOpen, setIsOpen] = useState(false);
+  const opener = { isOpen, setIsOpen };
+
+  //userslist
+  const [usersList, setUsersList] = useState([]);
+  const usersListprops = { usersList, setUsersList };
 
   return (
     <>
@@ -51,9 +62,13 @@ function App() {
           path="/SlackPage"
           element={
             <PrivateRoute auth={auth}>
-              <UserContext.Provider value={value}>
-                <SlackPage />
-              </UserContext.Provider>
+              <OpennerContext.Provider value={opener}>
+                <UserContext.Provider value={value}>
+                  <UsersContext.Provider value={usersListprops}>
+                    <SlackPage />
+                  </UsersContext.Provider>
+                </UserContext.Provider>
+              </OpennerContext.Provider>
             </PrivateRoute>
           }
         />
