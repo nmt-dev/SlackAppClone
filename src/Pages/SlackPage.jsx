@@ -12,16 +12,26 @@ import PopUp from "../Components/PopUp/PopUp";
 import API from "../Utils/API";
 import { UsersContext } from "../Context/UsersContext";
 import nameFormatter from "../Utils/Nameformatter";
+import { MessengerContext } from "../Context/MessengerContext";
+import { LoggedInUserContext } from "../Context/LoggedInUserContext";
+import { MessagesContext } from "../Context/MessagesContext";
+import { MessengerObjectContext } from "../Context/MessengerObjectContext";
 
 function SlackPage() {
   const { userHeaders, setUserHeaders } = useContext(UserContext);
   const { isOpen, setIsOpen } = useContext(OpennerContext);
   const { usersList, setUsersList } = useContext(UsersContext);
+  const { messenger, setMessenger } = useContext(MessengerContext);
+  const { loggedIn, setLoggedIn } = useContext(LoggedInUserContext);
+  const { userMessages, setUserMessages } = useContext(MessagesContext);
+  const { messengerObject, setMessengerObject } = useContext(
+    MessengerObjectContext
+  );
   let arrayofObjects;
   let useremails;
-  let formattedemails;
+  let mesObj;
 
-  const axiosGet = async () => {
+  const axiosGetUsers = async () => {
     const getUsers = await API.get("/users", {
       headers: userHeaders,
     }).catch((error) => {
@@ -29,16 +39,29 @@ function SlackPage() {
     });
     if (getUsers.status === 200) {
       arrayofObjects = getUsers.data.data;
+      mesObj = arrayofObjects.find((obj) => obj.uid === messenger);
       useremails = arrayofObjects.map((a) => a.uid);
-      formattedemails = useremails.map((a) => nameFormatter(a));
-      setUsersList(formattedemails);
+      setUsersList(useremails);
+      // setMessengerObject(arrayofObjects.find((obj) => (obj.uid = messenger)));
+      setMessengerObject(mesObj);
     }
-    console.log(getUsers.data.data);
-    console.log(`userslist ${usersList}`);
   };
+  const axiosGetMessages = async () => {
+    const getMessages = await API.get(
+      `/messages?receiver_id=${loggedIn}&receiver_class=User`,
+      { headers: userHeaders }
+    ).catch((err) => {
+      console.log(`retrieve message error ${err}`);
+    });
+    if (getMessages.status === 200) {
+      setUserMessages(getMessages.data);
+    }
+  };
+
   useEffect(() => {
-    axiosGet();
-  }, []);
+    axiosGetUsers();
+    axiosGetMessages();
+  }, [isOpen]);
 
   return (
     <>
@@ -57,7 +80,6 @@ function SlackPage() {
         <div className={styles.textarea}>
           <Textarea />
         </div>
-        {/* <Btn onClick={togglePop()} content={"toggle"} /> */}
       </div>
     </>
   );

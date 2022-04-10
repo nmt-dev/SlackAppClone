@@ -1,27 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../TextArea/TextArea.module.scss";
+import Btn from "../../Components/General/Button";
+import API from "../../Utils/API";
+import { useContext } from "react";
+import { UserContext } from "../../Context/UserContext";
+import { MessengerObjectContext } from "../../Context/MessengerObjectContext";
 
-const sendmessage = () => {
-  alert("message sent");
-};
-
-// function auto_grow(element) {
-//   element.style.height = "15px";
-//   element.style.height = element.scrollHeight + "px";
-// }
 function TextArea() {
+  const { userHeaders, setUserHeaders } = useContext(UserContext);
+  const { messengerObject, setMessengerObject } = useContext(
+    MessengerObjectContext
+  );
+
+  const [textBody, setTextBody] = useState();
+
+  const axiosSendMessage = async () => {
+    const MessageSent = await API.post(
+      "/messages",
+      {
+        // receiver_id: messengerObject.id,
+        // receiver_class: "user", //set logic here if channel is open or not
+        // body: textBody,
+
+        receiver_id: messengerObject.id,
+        receiver_class: "User",
+        body: textBody,
+      },
+      {
+        headers: userHeaders,
+      }
+    ).catch((err) => {
+      console.log(`retrieve message error ${err}`);
+    });
+    console.log(MessageSent);
+  };
+
+  const sendmessage = (e) => {
+    e.preventDefault();
+    axiosSendMessage();
+    alert("message sent");
+    setTextBody("");
+  };
+
   return (
     <>
       <div className={styles.contain}>
-        <form className={styles.formtextarea}>
+        <form onSubmit={sendmessage} className={styles.formtextarea}>
           <textarea
             //onInput={auto_grow}
             placeholder="Message {Selected}"
             className={styles.textarea}
+            value={textBody}
+            onChange={(e) => setTextBody(e.target.value)}
+            autoComplete="off"
+            required={true}
           ></textarea>
-          <div tabIndex="0" className={styles.sendbutton}>
-            <i class="las la-paper-plane"></i>
-          </div>
+          <Btn
+            className={styles.button}
+            type="submit"
+            content={<i id={styles.i} class="las la-paper-plane"></i>}
+          />
         </form>
       </div>
     </>

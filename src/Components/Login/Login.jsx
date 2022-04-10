@@ -7,14 +7,17 @@ import { useNavigate } from "react-router-dom";
 import API from "../../Utils/API";
 import { useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
+import { LoggedInUserContext } from "../../Context/LoggedInUserContext";
 //<i class="las la-eye"></i>
 function UserLogin({ auth, setAuth }) {
   const { userHeaders, setUserHeaders } = useContext(UserContext);
+  const { loggedIn, setLoggedIn } = useContext(LoggedInUserContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const HandleSubmit = async (e) => {
@@ -28,10 +31,12 @@ function UserLogin({ auth, setAuth }) {
     });
     if (response.status === 200) {
       console.log(response.headers);
+      setLoggedIn(JSON.stringify(response.data.data.id));
       setUserHeaders(response.headers);
       setIsLoading(true);
       setTimeout(() => {
         setAuth(!null);
+        console.log(JSON.stringify(response.data.data.id));
       }, 5500);
     }
   };
