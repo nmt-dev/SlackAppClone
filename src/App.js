@@ -12,6 +12,10 @@ import { UserContext } from "./Context/UserContext";
 import { ChannelsContext } from "./Context/ChannelsContext";
 import { OpennerContext } from "./Context/OpennerContext";
 import { UsersContext } from "./Context/UsersContext";
+import { MessengerContext } from "./Context/MessengerContext";
+import { LoggedInUserContext } from "./Context/LoggedInUserContext";
+import { MessagesContext } from "./Context/MessagesContext";
+import { MessengerObjectContext } from "./Context/MessengerObjectContext";
 
 function App() {
   const [auth, setAuth] = useState(null);
@@ -27,6 +31,22 @@ function App() {
   //userslist
   const [usersList, setUsersList] = useState([]);
   const usersListprops = { usersList, setUsersList };
+
+  //messenger
+  const [messenger, setMessenger] = useState();
+  const myMessenger = { messenger, setMessenger };
+
+  //loggedinuser
+  const [loggedIn, setLoggedIn] = useState();
+  const myloggedIn = { loggedIn, setLoggedIn };
+
+  //recieved messages
+  const [userMessages, setUserMessages] = useState();
+  const Message = { userMessages, setUserMessages };
+
+  //messenger object
+  const [messengerObject, setMessengerObject] = useState();
+  const mObject = { messengerObject, setMessengerObject };
 
   return (
     <>
@@ -51,9 +71,11 @@ function App() {
           path="/LogIn"
           element={
             <PublicRoute auth={auth}>
-              <UserContext.Provider value={value}>
-                <UserLogin auth={auth} setAuth={setAuth} />
-              </UserContext.Provider>
+              <LoggedInUserContext.Provider value={myloggedIn}>
+                <UserContext.Provider value={value}>
+                  <UserLogin auth={auth} setAuth={setAuth} />
+                </UserContext.Provider>
+              </LoggedInUserContext.Provider>
             </PublicRoute>
           }
         />
@@ -62,13 +84,21 @@ function App() {
           path="/SlackPage"
           element={
             <PrivateRoute auth={auth}>
-              <OpennerContext.Provider value={opener}>
-                <UserContext.Provider value={value}>
-                  <UsersContext.Provider value={usersListprops}>
-                    <SlackPage />
-                  </UsersContext.Provider>
-                </UserContext.Provider>
-              </OpennerContext.Provider>
+              <LoggedInUserContext.Provider value={myloggedIn}>
+                <MessengerObjectContext.Provider value={mObject}>
+                  <MessengerContext.Provider value={myMessenger}>
+                    <OpennerContext.Provider value={opener}>
+                      <UserContext.Provider value={value}>
+                        <UsersContext.Provider value={usersListprops}>
+                          <MessagesContext.Provider value={Message}>
+                            <SlackPage />
+                          </MessagesContext.Provider>
+                        </UsersContext.Provider>
+                      </UserContext.Provider>
+                    </OpennerContext.Provider>
+                  </MessengerContext.Provider>
+                </MessengerObjectContext.Provider>
+              </LoggedInUserContext.Provider>
             </PrivateRoute>
           }
         />

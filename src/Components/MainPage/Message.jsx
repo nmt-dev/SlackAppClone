@@ -3,8 +3,12 @@ import Img from "../General/Img";
 import profilepic from "../../Assets/Images/profilepic.png";
 import { Time, Today } from "../../Utils/Utils";
 import styles from "./Message.module.scss";
+import { useContext } from "react";
+import { MessagesContext } from "../../Context/MessagesContext";
 
 function Message() {
+  const { userMessages, setUserMessages } = useContext(MessagesContext);
+
   return (
     <>
       <div className={styles.contain}>

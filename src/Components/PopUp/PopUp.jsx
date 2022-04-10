@@ -6,12 +6,22 @@ import { OpennerContext } from "../../Context/OpennerContext";
 import Input from "../General/Input";
 import UserListGenerator from "../../Utils/UserListGenerator";
 import { UsersContext } from "../../Context/UsersContext";
+import { MessengerContext } from "../../Context/MessengerContext";
+import { MessengerObjectContext } from "../../Context/MessengerObjectContext";
 
 function PopUp() {
-  const [usersArray, setUsersArray] = useState(["user1", "user2"]);
   const { isOpen, setIsOpen } = useContext(OpennerContext);
   const { usersList, setUsersList } = useContext(UsersContext);
+  const { messenger, setMessenger } = useContext(MessengerContext);
+
+  const [chosenUser, setChosenUser] = useState();
+
   function togglePop() {
+    setIsOpen(!isOpen);
+    setMessenger(chosenUser);
+  }
+
+  function closePopUp() {
     setIsOpen(!isOpen);
   }
 
@@ -24,8 +34,7 @@ function PopUp() {
             <Input
               list="userlist"
               className={styles.datalistinputfield}
-              //value
-              //onChange
+              onChange={(e) => setChosenUser(e.target.value)}
               autoComplete="off"
               required={true}
             />
@@ -36,7 +45,7 @@ function PopUp() {
           </form>
           <i
             id={styles.close}
-            onClick={togglePop}
+            onClick={closePopUp}
             class="las la-times-circle"
           ></i>
         </div>

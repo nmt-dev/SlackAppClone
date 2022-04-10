@@ -6,15 +6,15 @@
   font-family: $font-style;
 }
 .formtextarea {
-  width: 100%;
+  width: 98%;
   height: auto;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   font-size: 15px;
 }
 .textarea {
-  width: 95%;
+  width: 92%;
   overflow-y: hidden;
   background-color: $text-area;
   color: $text-color;
@@ -26,25 +26,33 @@
   color: transparent;
 }
 
-.sendbutton {
+.button {
   background-color: $evenhandlers-color;
-  border-radius: 4px;
-  box-shadow: 5px 5px 25px 1px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  box-shadow: rgba(44, 187, 99, 0.2) 0 -25px 18px -14px inset,
+    rgba(44, 187, 99, 0.15) 0 1px 2px, rgba(44, 187, 99, 0.15) 0 2px 4px,
+    rgba(44, 187, 99, 0.15) 0 4px 8px, rgba(44, 187, 99, 0.15) 0 8px 16px,
+    rgba(44, 187, 99, 0.15) 0 16px 32px;
   cursor: pointer;
-  outline: 0;
-  transition: 0.3s linear;
+  display: inline-block;
+  padding: 6px 12px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
-.sendbutton:hover {
-  cursor: pointer;
+
+.button:hover {
+  box-shadow: rgba(44, 187, 99, 0.35) 0 -25px 18px -14px inset,
+    rgba(44, 187, 99, 0.25) 0 1px 2px, rgba(44, 187, 99, 0.25) 0 2px 4px,
+    rgba(44, 187, 99, 0.25) 0 4px 8px, rgba(44, 187, 99, 0.25) 0 8px 16px,
+    rgba(44, 187, 99, 0.25) 0 16px 32px;
+  transform: scale(1.05) rotate(-1deg);
 }
-.sendbutton:active {
-  cursor: pointer;
-  transform: scale(0.9);
-}
-.sendbutton:focus {
-  border: 1px solid $text-color;
-}
-i {
+#i {
+  color: $mainpage-color;
   font-size: 24px;
-  padding: 5px;
 }
