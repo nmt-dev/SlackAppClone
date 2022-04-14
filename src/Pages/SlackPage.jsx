@@ -33,7 +33,8 @@ function SlackPage() {
   const { messengerMessages, setmessengerMessages } = useContext(
     MessengerMessagesContext
   );
-  const { userChannels, setUserChannels } = useContext(ChannelsContext);
+  const { userChannels, setUserChannels, chosenChannel, selectedChannel } =
+    useContext(ChannelsContext);
 
   const [update, setUpdate] = useState(null); //1
   const [directMessages, setDirectMessages] = useState([]); //2
@@ -70,8 +71,8 @@ function SlackPage() {
       console.log(error);
     });
     if (getChannels.status === 200) {
-      setUserChannels(getChannels.data.data);
-      console.log(getChannels.data.data);
+      setUserChannels(getChannels.data);
+      console.log(getChannels.data);
     }
   };
 
@@ -118,10 +119,8 @@ function SlackPage() {
   //get userchannels
   useEffect(() => {
     if (loggedInUser) {
-      setTimeout(() => {
-        axiosGetUserChannels();
-        console.log("updated user channels");
-      }, 500);
+      axiosGetUserChannels();
+      console.log("updated user channels");
     }
   }, [loggedInUser, update]);
 

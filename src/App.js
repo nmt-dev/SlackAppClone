@@ -62,11 +62,14 @@ function App() {
   //userslist
   const [userChannels, setUserChannels] = useState([]);
   const [addThisChannel, setAddThisChannel] = useState();
+  const [chosenChannel, setChosenChannel] = useState();
   const myChannels = {
     userChannels,
     setUserChannels,
     addThisChannel,
     setAddThisChannel,
+    chosenChannel,
+    setChosenChannel,
   };
 
   return (

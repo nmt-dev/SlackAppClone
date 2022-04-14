@@ -21,6 +21,7 @@ function PopUp({ updateMe }) {
   const [chosenUser, setChosenUser] = useState();
   const [channelName, setChannelName] = useState();
   const [channelMembers, setChannelMembers] = useState([{ user_ids: "" }]);
+  const [iterate, setIterate] = useState(channelMembers.values());
   const { userHeaders, setUSerHeaders } = useContext(UserContext);
 
   function addChannelMembers() {
@@ -33,7 +34,9 @@ function PopUp({ updateMe }) {
       "/channels",
       {
         name: channelName,
-        user_ids: [...channelMembers].values(),
+        user_ids: channelMembers.map((ids) => {
+          return ids.user_ids;
+        }),
       },
       { headers: userHeaders }
     ).catch((err) => {
@@ -87,11 +90,10 @@ function PopUp({ updateMe }) {
   }
 
   function handleBlur(i, e) {
-    let userEmails = usersList.map((a) => a.uid);
-    let onDataList = userEmails.find((email) => email == e.target.value);
+    let onDataList = usersList.find((obj) => obj.uid == e.target.value);
     if (onDataList !== undefined) {
       let newChannelMembers = [...channelMembers];
-      newChannelMembers[i][e.target.name] = onDataList;
+      newChannelMembers[i][e.target.name] = onDataList.id;
       setChannelMembers(newChannelMembers);
     } else {
       alert("email not found");
