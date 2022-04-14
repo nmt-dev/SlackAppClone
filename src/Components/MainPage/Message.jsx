@@ -5,9 +5,11 @@ import { Time, Today } from "../../Utils/Utils";
 import styles from "./Message.module.scss";
 import { useContext } from "react";
 import { MessagesContext } from "../../Context/MessagesContext";
+import { MessengerMessagesContext } from "../../Context/MessagesContext copy";
 
 function Message({ message, sender, time }) {
   // 2022-04-12T10:36:30.854Z
+  const { messengerMessages } = useContext(MessengerMessagesContext);
   const [converter, setConverter] = useState(JSON.stringify(time));
 
   function getDate() {
