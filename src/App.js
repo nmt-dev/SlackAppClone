@@ -16,6 +16,8 @@ import { MessengerContext } from "./Context/MessengerContext";
 import { LoggedInUserContext } from "./Context/LoggedInUserContext";
 import { MessagesContext } from "./Context/MessagesContext";
 import { MessengerObjectContext } from "./Context/MessengerObjectContext";
+import { MessengerMessagesContext } from "./Context/MessagesContext copy";
+import { FilteredMessagesContext } from "./Context/FilteredMessagesContext";
 
 function App() {
   const [auth, setAuth] = useState(null);
@@ -26,27 +28,46 @@ function App() {
 
   //popup isopen
   const [isOpen, setIsOpen] = useState(false);
-  const opener = { isOpen, setIsOpen };
+  const [isOpenChannel, setIsOpenChannel] = useState(false);
+  const opener = { isOpen, setIsOpen, isOpenChannel, setIsOpenChannel };
 
   //userslist
   const [usersList, setUsersList] = useState([]);
   const usersListprops = { usersList, setUsersList };
 
-  //messenger
+  //messenger delete?
   const [messenger, setMessenger] = useState();
   const myMessenger = { messenger, setMessenger };
 
   //loggedinuser
-  const [loggedIn, setLoggedIn] = useState();
-  const myloggedIn = { loggedIn, setLoggedIn };
+  const [loggedInUser, setLoggedInUser] = useState();
+  const myloggedIn = { loggedInUser, setLoggedInUser };
 
-  //recieved messages
+  //recieved messages delete
   const [userMessages, setUserMessages] = useState();
   const Message = { userMessages, setUserMessages };
 
   //messenger object
   const [messengerObject, setMessengerObject] = useState();
   const mObject = { messengerObject, setMessengerObject };
+
+  //messenger messages
+  const [messengerMessages, setmessengerMessages] = useState();
+  const myMessengerMessages = { messengerMessages, setmessengerMessages };
+
+  //filtered messages delete
+  const [filteredMessages, setFilteredMessages] = useState([]); //3
+  const myFilteredM = { filteredMessages, setFilteredMessages };
+
+  //userslist
+  const [userChannels, setUserChannels] = useState([]);
+  const [addThisChannel, setAddThisChannel] = useState();
+  const myChannels = {
+    userChannels,
+    setUserChannels,
+    addThisChannel,
+    setAddThisChannel,
+  };
 
   return (
     <>
@@ -85,19 +106,27 @@ function App() {
           element={
             <PrivateRoute auth={auth}>
               <LoggedInUserContext.Provider value={myloggedIn}>
-                <MessengerObjectContext.Provider value={mObject}>
-                  <MessengerContext.Provider value={myMessenger}>
-                    <OpennerContext.Provider value={opener}>
-                      <UserContext.Provider value={value}>
-                        <UsersContext.Provider value={usersListprops}>
-                          <MessagesContext.Provider value={Message}>
-                            <SlackPage />
-                          </MessagesContext.Provider>
-                        </UsersContext.Provider>
-                      </UserContext.Provider>
-                    </OpennerContext.Provider>
-                  </MessengerContext.Provider>
-                </MessengerObjectContext.Provider>
+                <ChannelsContext.Provider value={myChannels}>
+                  <MessengerObjectContext.Provider value={mObject}>
+                    <MessengerMessagesContext.Provider
+                      value={myMessengerMessages}
+                    >
+                      <FilteredMessagesContext.Provider value={myFilteredM}>
+                        <MessengerContext.Provider value={myMessenger}>
+                          <OpennerContext.Provider value={opener}>
+                            <UserContext.Provider value={value}>
+                              <UsersContext.Provider value={usersListprops}>
+                                <MessagesContext.Provider value={Message}>
+                                  <SlackPage />
+                                </MessagesContext.Provider>
+                              </UsersContext.Provider>
+                            </UserContext.Provider>
+                          </OpennerContext.Provider>
+                        </MessengerContext.Provider>
+                      </FilteredMessagesContext.Provider>
+                    </MessengerMessagesContext.Provider>
+                  </MessengerObjectContext.Provider>
+                </ChannelsContext.Provider>
               </LoggedInUserContext.Provider>
             </PrivateRoute>
           }

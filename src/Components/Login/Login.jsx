@@ -11,7 +11,7 @@ import { LoggedInUserContext } from "../../Context/LoggedInUserContext";
 //<i class="las la-eye"></i>
 function UserLogin({ auth, setAuth }) {
   const { userHeaders, setUserHeaders } = useContext(UserContext);
-  const { loggedIn, setLoggedIn } = useContext(LoggedInUserContext);
+  const { loggedInUser, setLoggedInUser } = useContext(LoggedInUserContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,12 +31,12 @@ function UserLogin({ auth, setAuth }) {
     });
     if (response.status === 200) {
       console.log(response.headers);
-      setLoggedIn(JSON.stringify(response.data.data.id));
+      console.log(response.data.data);
+      setLoggedInUser(response.data.data);
       setUserHeaders(response.headers);
       setIsLoading(true);
       setTimeout(() => {
         setAuth(!null);
-        console.log(JSON.stringify(response.data.data.id));
       }, 5500);
     }
   };

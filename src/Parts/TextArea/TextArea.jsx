@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
 import { MessengerObjectContext } from "../../Context/MessengerObjectContext";
 
-function TextArea() {
+function TextArea({ updateMe }) {
   const { userHeaders, setUserHeaders } = useContext(UserContext);
   const { messengerObject, setMessengerObject } = useContext(
     MessengerObjectContext
@@ -18,10 +18,6 @@ function TextArea() {
     const MessageSent = await API.post(
       "/messages",
       {
-        // receiver_id: messengerObject.id,
-        // receiver_class: "user", //set logic here if channel is open or not
-        // body: textBody,
-
         receiver_id: messengerObject.id,
         receiver_class: "User",
         body: textBody,
@@ -40,6 +36,7 @@ function TextArea() {
     axiosSendMessage();
     alert("message sent");
     setTextBody("");
+    updateMe();
   };
 
   return (
