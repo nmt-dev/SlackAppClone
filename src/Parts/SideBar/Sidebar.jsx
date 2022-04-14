@@ -8,13 +8,19 @@ import { OpennerContext } from "../../Context/OpennerContext";
 import { UserContext } from "../../Context/UserContext";
 
 function SideBar() {
-  const { isOpen, setIsOpen } = useContext(OpennerContext);
+  const { isOpen, setIsOpen, isOpenChannel, setIsOpenChannel } =
+    useContext(OpennerContext);
 
   function togglePop() {
     console.log("toggle open");
-    setIsOpen(!isOpen);
-    console.log(isOpen);
+    setIsOpen(true);
+    console.log("add messenger open");
   }
+  function togglePopChannels() {
+    console.log("add channels open");
+    setIsOpenChannel(true);
+  }
+
   return (
     <>
       <div className={styles.main}>
@@ -23,8 +29,9 @@ function SideBar() {
           <i id={styles.drop} class="las la-caret-down"></i>
           <p className={styles.textheader}>Channels</p>
           <Btn
+            onClick={togglePopChannels}
             className={styles.button}
-            content={<i class="las la-plus"></i>}
+            content={<i class="las la-plus"></i>} //add channels
           />
         </div>
         <Channels />

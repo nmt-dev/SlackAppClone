@@ -1,6 +1,7 @@
 import React from "react";
 const UserListGenerator = ({ usersArray }) => {
-  return usersArray.map((users, i) => <option key={i} value={users}></option>);
+  let userEmails = usersArray.map((a) => a.uid);
+  return userEmails.map((users, i) => <option key={i} value={users}></option>);
 };
 
 export default UserListGenerator;

@@ -1,0 +1,8 @@
+@import "../../Sass/variables";
+@import "../../Sass//main.scss";
+
+.messagesContainer {
+  width: 99%;
+  height: 70vh;
+  overflow-y: scroll;
+}
