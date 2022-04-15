@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { OpennerContext } from "../../Context/OpennerContext";
 import { UserContext } from "../../Context/UserContext";
 
-function SideBar() {
+function SideBar({ update }) {
   const { isOpen, setIsOpen, isOpenChannel, setIsOpenChannel } =
     useContext(OpennerContext);
 
@@ -34,7 +34,7 @@ function SideBar() {
             content={<i class="las la-plus"></i>} //add channels
           />
         </div>
-        <Channels />
+        <Channels update={update} />
         <div className={styles.dmheader}>
           <i id={styles.drop} class="las la-caret-down"></i>
           <p className={styles.textheader}>Direct Messages</p>

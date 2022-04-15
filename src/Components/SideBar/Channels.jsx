@@ -8,7 +8,7 @@ import API from "../../Utils/API";
 import { useEffect } from "react";
 import { MessengerMessagesContext } from "../../Context/MessagesContext copy";
 import { MessengerContext } from "../../Context/MessengerContext";
-function Channels() {
+function Channels({ update }) {
   const { userHeaders, setUserHeaders } = useContext(UserContext);
   const {
     userChannels,
@@ -25,22 +25,6 @@ function Channels() {
 
   const [foundChannel, setFoundChannel] = useState();
 
-  const axiosGetChannelMessages = async (chosen) => {
-    const channelMessages = await API.get(
-      `messages?receiver_id=${chosen.id}&receiver_class=Channel`,
-      { headers: userHeaders }
-    ).catch((err) => {
-      console.log(`retrieve message error ${err}`);
-    });
-    if (channelMessages.status === 200) {
-      setmessengerMessages(channelMessages.data.data);
-    }
-  };
-  //get channel messages
-  useEffect(() => {
-    axiosGetChannelMessages();
-  }, chosenChannel);
-
   const foundChannelFunction = (e) => {
     console.log(e.target.innerText);
     let chosen = userChannels.data.find((obj) => {
@@ -48,7 +32,6 @@ function Channels() {
     });
     setChosenChannel(chosen.id);
     setMessenger(chosen.name);
-    axiosGetChannelMessages(chosen);
   };
 
   return (

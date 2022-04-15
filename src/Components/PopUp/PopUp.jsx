@@ -45,18 +45,6 @@ function PopUp({ updateMe }) {
     updateMe();
   };
 
-  // const axiosGetMessengerMessages = async () => {
-  //   const getMessengerMessages = await API.get(
-  //     `/messages?receiver_id=${messengerObject.id}&receiver_class=User`,
-  //     { headers: userHeaders }
-  //   ).catch((err) => {
-  //     console.log(`retrieve message error ${err}`);
-  //   });
-  //   if (getMessengerMessages.status === 200) {
-  //     setmessengerMessages(getMessengerMessages.data.data);
-  //   }
-  // };
-
   function togglePop(e) {
     e.preventDefault();
     setIsOpen(false);
@@ -68,6 +56,8 @@ function PopUp({ updateMe }) {
   function togglePopChannels(e) {
     e.preventDefault();
     axiosCreateChannel();
+    setMessenger(channelName);
+
     setTimeout(() => {
       setIsOpenChannel(false);
     }, 3000);

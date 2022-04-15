@@ -5,14 +5,31 @@ import API from "../../Utils/API";
 import { useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
 import { MessengerObjectContext } from "../../Context/MessengerObjectContext";
+import { MessengerContext } from "../../Context/MessengerContext";
 
 function TextArea({ updateMe }) {
   const { userHeaders, setUserHeaders } = useContext(UserContext);
   const { messengerObject, setMessengerObject } = useContext(
     MessengerObjectContext
   );
+  const { messenger, setMessenger } = useContext(MessengerContext);
 
   const [textBody, setTextBody] = useState();
+
+  const axiosSendChannel = async () => {
+    const channelMessage = await API.post(
+      "/messages",
+      {
+        receiver_id: messengerObject.id,
+        receiver_class: "Channel",
+        body: textBody,
+      },
+      { headers: userHeaders }
+    ).catch((err) => {
+      console.log(`send message error ${err}`);
+    });
+    console.log(channelMessage);
+  };
 
   const axiosSendMessage = async () => {
     const MessageSent = await API.post(
@@ -26,17 +43,22 @@ function TextArea({ updateMe }) {
         headers: userHeaders,
       }
     ).catch((err) => {
-      console.log(`retrieve message error ${err}`);
+      console.log(`send message error ${err}`);
     });
     console.log(MessageSent);
   };
 
   const sendmessage = (e) => {
     e.preventDefault();
-    axiosSendMessage();
+    if (JSON.stringify(messenger).includes("@")) {
+      axiosSendMessage();
+      updateMe();
+    } else {
+      axiosSendChannel();
+      updateMe();
+    }
     alert("message sent");
     setTextBody("");
-    updateMe();
   };
 
   return (

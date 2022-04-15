@@ -17,7 +17,6 @@ import { LoggedInUserContext } from "./Context/LoggedInUserContext";
 import { MessagesContext } from "./Context/MessagesContext";
 import { MessengerObjectContext } from "./Context/MessengerObjectContext";
 import { MessengerMessagesContext } from "./Context/MessagesContext copy";
-import { FilteredMessagesContext } from "./Context/FilteredMessagesContext";
 
 function App() {
   const [auth, setAuth] = useState(null);
@@ -54,10 +53,6 @@ function App() {
   //messenger messages
   const [messengerMessages, setmessengerMessages] = useState();
   const myMessengerMessages = { messengerMessages, setmessengerMessages };
-
-  //filtered messages delete
-  const [filteredMessages, setFilteredMessages] = useState([]); //3
-  const myFilteredM = { filteredMessages, setFilteredMessages };
 
   //userslist
   const [userChannels, setUserChannels] = useState([]);
@@ -114,19 +109,17 @@ function App() {
                     <MessengerMessagesContext.Provider
                       value={myMessengerMessages}
                     >
-                      <FilteredMessagesContext.Provider value={myFilteredM}>
-                        <MessengerContext.Provider value={myMessenger}>
-                          <OpennerContext.Provider value={opener}>
-                            <UserContext.Provider value={value}>
-                              <UsersContext.Provider value={usersListprops}>
-                                <MessagesContext.Provider value={Message}>
-                                  <SlackPage />
-                                </MessagesContext.Provider>
-                              </UsersContext.Provider>
-                            </UserContext.Provider>
-                          </OpennerContext.Provider>
-                        </MessengerContext.Provider>
-                      </FilteredMessagesContext.Provider>
+                      <MessengerContext.Provider value={myMessenger}>
+                        <OpennerContext.Provider value={opener}>
+                          <UserContext.Provider value={value}>
+                            <UsersContext.Provider value={usersListprops}>
+                              <MessagesContext.Provider value={Message}>
+                                <SlackPage />
+                              </MessagesContext.Provider>
+                            </UsersContext.Provider>
+                          </UserContext.Provider>
+                        </OpennerContext.Provider>
+                      </MessengerContext.Provider>
                     </MessengerMessagesContext.Provider>
                   </MessengerObjectContext.Provider>
                 </ChannelsContext.Provider>
