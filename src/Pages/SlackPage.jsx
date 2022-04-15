@@ -17,7 +17,6 @@ import { LoggedInUserContext } from "../Context/LoggedInUserContext";
 import { MessagesContext } from "../Context/MessagesContext";
 import { MessengerObjectContext } from "../Context/MessengerObjectContext";
 import { MessengerMessagesContext } from "../Context/MessagesContext copy";
-import { FilteredMessagesContext } from "../Context/FilteredMessagesContext";
 
 function SlackPage() {
   const { userHeaders, setUserHeaders } = useContext(UserContext);
@@ -39,14 +38,6 @@ function SlackPage() {
   const [update, setUpdate] = useState(null); //1
   const [directMessages, setDirectMessages] = useState([]); //2
   const [DMs, setDMs] = useState();
-
-  // const sortMessages = () => {
-  //   setDirectMessages(
-  //     filteredMessages.sort(function (a, b) {
-  //       return a.id - b.id;
-  //     })
-  //   );
-  // };
 
   let mesObj;
   const updateMeWhenMessageIsSent = () => {
@@ -76,6 +67,22 @@ function SlackPage() {
     }
   };
 
+  const axiosGetChannelMessages = async (chosen) => {
+    const channelMessages = await API.get(
+      `messages?receiver_id=${chosen}&receiver_class=Channel`,
+      { headers: userHeaders }
+    ).catch((err) => {
+      console.log(`retrieve message error ${err}`);
+    });
+    if (channelMessages.status === 200) {
+      setmessengerMessages(channelMessages.data.data);
+    }
+  };
+  //get channel messages
+  useEffect(() => {
+    axiosGetChannelMessages(chosenChannel);
+  }, [chosenChannel, update]);
+
   const axiosGetMessages = async () => {
     const getMessages = await API.get(
       `/messages?receiver_id=${loggedInUser.id}&receiver_class=User`,
@@ -91,15 +98,18 @@ function SlackPage() {
   };
 
   const axiosGetMessengerMessages = async () => {
-    const getMessengerMessages = await API.get(
-      `/messages?receiver_id=${messengerObject.id}&receiver_class=User`,
-      { headers: userHeaders }
-    ).catch((err) => {
-      console.log(`retrieve message error ${err}`);
-    });
-    if (getMessengerMessages.status === 200) {
-      setmessengerMessages(getMessengerMessages.data.data);
+    if (JSON.stringify(messenger).includes("@")) {
+      const getMessengerMessages = await API.get(
+        `/messages?receiver_id=${messengerObject.id}&receiver_class=User`,
+        { headers: userHeaders }
+      ).catch((err) => {
+        console.log(`retrieve message error ${err}`);
+      });
+      if (getMessengerMessages.status === 200) {
+        setmessengerMessages(getMessengerMessages.data.data);
+      }
     }
+    console.log("messenger is channel");
   };
 
   //get users
@@ -127,10 +137,15 @@ function SlackPage() {
   //get selected DMed
   useEffect(() => {
     if (messenger) {
-      mesObj = usersList.find((obj) => obj.uid === messenger);
-      setMessengerObject(mesObj);
+      if (JSON.stringify(messenger).includes("@")) {
+        mesObj = usersList.find((obj) => obj.uid === messenger);
+        setMessengerObject(mesObj);
+      } else {
+        mesObj = userChannels.data.find((obj) => obj.name === messenger);
+        setMessengerObject(mesObj);
+      }
     }
-  }, [messenger]);
+  }, [messenger, update]);
 
   //get messages of DMed
   useEffect(() => {
@@ -150,7 +165,7 @@ function SlackPage() {
           <TopBar />
         </div>
         <div className={styles.sidebar}>
-          <SideBar />
+          <SideBar update={update} />
         </div>
         <div className={styles.messagehistory}>
           {}
