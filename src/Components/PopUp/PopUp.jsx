@@ -13,17 +13,26 @@ import API from "../../Utils/API";
 import { UserContext } from "../../Context/UserContext";
 
 function PopUp({ updateMe }) {
-  const { isOpen, setIsOpen, isOpenChannel, setIsOpenChannel } =
-    useContext(OpennerContext);
+  const {
+    isOpen,
+    setIsOpen,
+    isOpenChannel,
+    setIsOpenChannel,
+    isOpenChannelMembers,
+    setIsOpenChannelMembers,
+  } = useContext(OpennerContext);
   const { usersList, setUsersList } = useContext(UsersContext);
   const { messenger, setMessenger } = useContext(MessengerContext);
   const { addThisChannel, setAddThisChannel } = useContext(ChannelsContext);
   const [chosenUser, setChosenUser] = useState();
   const [channelName, setChannelName] = useState();
   const [channelMembers, setChannelMembers] = useState([{ user_ids: "" }]);
-  const [iterate, setIterate] = useState(channelMembers.values());
   const { userHeaders, setUSerHeaders } = useContext(UserContext);
-
+  const { displayChannelMembers, setDisplayChannelMembers } =
+    useContext(ChannelsContext);
+  const { messengerObject, setMessengerObject } = useContext(
+    MessengerObjectContext
+  );
   function addChannelMembers() {
     setChannelMembers([...channelMembers, { user_ids: "" }]);
     console.log("add input");
@@ -41,6 +50,20 @@ function PopUp({ updateMe }) {
       { headers: userHeaders }
     ).catch((err) => {
       console.log(`add channel error ${err}`);
+    });
+    updateMe();
+  };
+
+  const axiosChannelAddMembers = async () => {
+    const addMembers = await API.post(
+      "/channel/add_member",
+      {
+        id: messengerObject.id,
+        member_id: channelMembers[0].user_ids,
+      },
+      { headers: userHeaders }
+    ).catch((err) => {
+      console.log(`add member ${err}`);
     });
     updateMe();
   };
@@ -71,6 +94,7 @@ function PopUp({ updateMe }) {
   function closePopUp() {
     setIsOpen(false);
     setIsOpenChannel(false);
+    setIsOpenChannelMembers(false);
   }
 
   function handleChange(i, e) {
@@ -91,6 +115,13 @@ function PopUp({ updateMe }) {
       let newChannelMembers = [...channelMembers];
       newChannelMembers[i][e.target.name] = "";
     }
+  }
+
+  function addmemmbersssss(e) {
+    e.preventDefault();
+    console.log("membersadd");
+    axiosChannelAddMembers();
+    setIsOpenChannelMembers(false);
   }
 
   return (
@@ -158,6 +189,46 @@ function PopUp({ updateMe }) {
                 <datalist id="userlist">
                   <UserListGenerator usersArray={usersList} />
                 </datalist>
+                <Btn
+                  className={styles.button}
+                  content={"Submit"}
+                  type={"submit"}
+                />
+              </form>
+            </>
+          )}
+          {isOpenChannelMembers && (
+            <>
+              <div className={styles.channelform}>
+                <ul>
+                  {displayChannelMembers &&
+                    displayChannelMembers.map((element) => (
+                      <li key={element}>{element}</li>
+                    ))}
+                </ul>
+              </div>
+              <form className={styles.pmform} onSubmit={addmemmbersssss}>
+                <>
+                  <h2 className={styles.label}>Add Members</h2>
+                  {channelMembers.map((element, index) => (
+                    <>
+                      <Input
+                        key={index}
+                        name="user_ids"
+                        list="userlist"
+                        className={styles.datalistinputfield}
+                        value={element.user_ids || ""}
+                        onChange={(e) => handleChange(index, e)}
+                        onBlur={(e) => handleBlur(index, e)}
+                        autoComplete="off"
+                        required={true}
+                      />
+                      <datalist id="userlist">
+                        <UserListGenerator usersArray={usersList} />
+                      </datalist>
+                    </>
+                  ))}
+                </>
                 <Btn
                   className={styles.button}
                   content={"Submit"}

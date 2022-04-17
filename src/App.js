@@ -28,7 +28,15 @@ function App() {
   //popup isopen
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenChannel, setIsOpenChannel] = useState(false);
-  const opener = { isOpen, setIsOpen, isOpenChannel, setIsOpenChannel };
+  const [isOpenChannelMembers, setIsOpenChannelMembers] = useState(false);
+  const opener = {
+    isOpen,
+    setIsOpen,
+    isOpenChannel,
+    setIsOpenChannel,
+    isOpenChannelMembers,
+    setIsOpenChannelMembers,
+  };
 
   //userslist
   const [usersList, setUsersList] = useState([]);
@@ -58,6 +66,8 @@ function App() {
   const [userChannels, setUserChannels] = useState([]);
   const [addThisChannel, setAddThisChannel] = useState();
   const [chosenChannel, setChosenChannel] = useState();
+  const [channelMembers, setChannelMembers] = useState();
+  const [displayChannelMembers, setDisplayChannelMembers] = useState();
   const myChannels = {
     userChannels,
     setUserChannels,
@@ -65,6 +75,10 @@ function App() {
     setAddThisChannel,
     chosenChannel,
     setChosenChannel,
+    channelMembers,
+    setChannelMembers,
+    displayChannelMembers,
+    setDisplayChannelMembers,
   };
 
   return (

@@ -20,8 +20,13 @@ import { MessengerMessagesContext } from "../Context/MessagesContext copy";
 
 function SlackPage() {
   const { userHeaders, setUserHeaders } = useContext(UserContext);
-  const { isOpen, setIsOpen, isOpenChannel, setIsOpenChannel } =
-    useContext(OpennerContext);
+  const {
+    isOpen,
+    setIsOpen,
+    isOpenChannel,
+    setIsOpenChannel,
+    isOpenChannelMembers,
+  } = useContext(OpennerContext);
   const { usersList, setUsersList } = useContext(UsersContext);
   const { messenger, setMessenger } = useContext(MessengerContext);
   const { loggedInUser, setLoggedInUser } = useContext(LoggedInUserContext);
@@ -32,8 +37,14 @@ function SlackPage() {
   const { messengerMessages, setmessengerMessages } = useContext(
     MessengerMessagesContext
   );
-  const { userChannels, setUserChannels, chosenChannel, selectedChannel } =
-    useContext(ChannelsContext);
+  const {
+    userChannels,
+    setUserChannels,
+    chosenChannel,
+    selectedChannel,
+    channelMembers,
+    setChannelMembers,
+  } = useContext(ChannelsContext);
 
   const [update, setUpdate] = useState(null); //1
   const [directMessages, setDirectMessages] = useState([]); //2
@@ -66,6 +77,22 @@ function SlackPage() {
       console.log(getChannels.data);
     }
   };
+
+  const axiosGetChannelDetails = async () => {
+    const getChannelDetails = await API.get(`/channels/${messengerObject.id}`, {
+      headers: userHeaders,
+    }).catch((err) => {
+      console.log(`getchanneldetails ${err}`);
+    });
+    if (getChannelDetails.status === 200) {
+      console.log(getChannelDetails.data.data.channel_members);
+      setChannelMembers(getChannelDetails.data.data.channel_members);
+    }
+  };
+
+  useEffect(() => {
+    axiosGetChannelDetails();
+  }, [messengerObject]);
 
   const axiosGetChannelMessages = async (chosen) => {
     const channelMessages = await API.get(
@@ -157,7 +184,7 @@ function SlackPage() {
 
   return (
     <>
-      {(isOpen || isOpenChannel) && (
+      {(isOpen || isOpenChannel || isOpenChannelMembers) && (
         <PopUp updateMe={updateMeWhenMessageIsSent} />
       )}
       <div className={styles.contain}>

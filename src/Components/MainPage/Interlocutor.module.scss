@@ -33,13 +33,21 @@
   justify-self: center;
   padding: 5px;
 }
-#call {
+#call,
+#members {
   font-size: 18px;
   opacity: 0.5;
 }
 
-#call:hover {
+#call:hover,
+#members:hover {
   cursor: pointer;
   transform: scale(1.1);
   opacity: 1;
+}
+
+.logoscont {
+  display: flex;
+  width: 10%;
+  justify-content: space-around;
 }
