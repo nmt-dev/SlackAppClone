@@ -9,4 +9,8 @@ export const ChannelsContext = createContext({
   setChosenChannel: () => {},
   selectedChannel: "",
   setSelectedChannel: () => {},
+  channelMembers: [],
+  setChannelMembers: () => {},
+  displayChannelMembers: [],
+  setDisplayChannelMembers: () => {},
 });

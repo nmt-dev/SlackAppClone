@@ -5,4 +5,6 @@ export const OpennerContext = createContext({
   setIsOpen: () => {},
   isOpenChannel: false,
   setIsOpenChannel: () => {},
+  isOpenChannelMembers: false,
+  setIsOpenChannelMembers: () => {},
 });
