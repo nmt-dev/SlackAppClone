@@ -9,14 +9,13 @@ import { LoggedInUserContext } from "../../Context/LoggedInUserContext";
 import { MessengerObjectContext } from "../../Context/MessengerObjectContext";
 import nameFormatter from "../../Utils/Nameformatter";
 import { toBeInTheDocument } from "@testing-library/jest-dom/dist/matchers";
-function MessageHistory({ update }) {
+function MessageHistory() {
   const { userMessages } = useContext(MessagesContext);
   const { messengerMessages } = useContext(MessengerMessagesContext);
   const { loggedInUser, setLoggedInUser } = useContext(LoggedInUserContext);
   const { messengerObject, setMessengerObject } = useContext(
     MessengerObjectContext
   );
-
   return (
     <>
       <Kausap />

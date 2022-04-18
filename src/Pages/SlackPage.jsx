@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import MessageHistory from "../Parts/MessageHistory/MessageHistory";
 import Textarea from "../Parts/TextArea/TextArea";
 import SideBar from "../Parts/SideBar/Sidebar";
@@ -34,7 +34,7 @@ function SlackPage() {
   const { messengerObject, setMessengerObject } = useContext(
     MessengerObjectContext
   );
-  const { messengerMessages, setmessengerMessages } = useContext(
+  const { messengerMessages, setMessengerMessages } = useContext(
     MessengerMessagesContext
   );
   const {
@@ -52,8 +52,14 @@ function SlackPage() {
 
   let mesObj;
   const updateMeWhenMessageIsSent = () => {
-    setUpdate(!update);
+    setUpdate("messages update");
+    console.log("messages updated");
   };
+
+  // const updateMeWhenMessageIsSent = useCallback(() => {
+  //   setUpdate("messages update");
+  //   console.log("messages updated");
+  // });
 
   const axiosGetUsers = async () => {
     const getUsers = await API.get("/users", {
@@ -102,7 +108,8 @@ function SlackPage() {
       console.log(`retrieve message error ${err}`);
     });
     if (channelMessages.status === 200) {
-      setmessengerMessages(channelMessages.data.data);
+      setMessengerMessages(channelMessages.data.data);
+      console.log(channelMessages.data.data);
     }
   };
   //get channel messages
@@ -133,7 +140,8 @@ function SlackPage() {
         console.log(`retrieve message error ${err}`);
       });
       if (getMessengerMessages.status === 200) {
-        setmessengerMessages(getMessengerMessages.data.data);
+        setMessengerMessages(getMessengerMessages.data.data);
+        console.log(getMessengerMessages.data.data);
       }
     }
     console.log("messenger is channel");
@@ -168,8 +176,10 @@ function SlackPage() {
         mesObj = usersList.find((obj) => obj.uid === messenger);
         setMessengerObject(mesObj);
       } else {
-        mesObj = userChannels.data.find((obj) => obj.name === messenger);
-        setMessengerObject(mesObj);
+        if (userChannels) {
+          mesObj = userChannels.data.find((obj) => obj.name === messenger);
+          setMessengerObject(mesObj);
+        }
       }
     }
   }, [messenger, update]);
@@ -182,6 +192,7 @@ function SlackPage() {
     }
   }, [messengerObject, update]);
 
+  //  }, [messengerObject, updateMeWhenMessageIsSent]);
   return (
     <>
       {(isOpen || isOpenChannel || isOpenChannelMembers) && (
@@ -196,7 +207,7 @@ function SlackPage() {
         </div>
         <div className={styles.messagehistory}>
           {}
-          <MessageHistory update={update} />
+          <MessageHistory updateMe={updateMeWhenMessageIsSent} />
         </div>
         <div className={styles.textarea}>
           <Textarea updateMe={updateMeWhenMessageIsSent} />

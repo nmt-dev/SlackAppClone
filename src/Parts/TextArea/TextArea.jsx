@@ -57,7 +57,6 @@ function TextArea({ updateMe }) {
       axiosSendChannel();
       updateMe();
     }
-    alert("message sent");
     setTextBody("");
   };
 

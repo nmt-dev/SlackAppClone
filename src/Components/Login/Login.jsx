@@ -17,7 +17,8 @@ function UserLogin({ auth, setAuth }) {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const [passwordType, setPasswordType] = useState("password");
+  const [eye, setEye] = useState("las la-eye-slash");
   const navigate = useNavigate();
 
   const HandleSubmit = async (e) => {
@@ -43,6 +44,16 @@ function UserLogin({ auth, setAuth }) {
   function Home() {
     navigate("/");
   }
+
+  function showMyPassword() {
+    setPasswordType("text");
+    setEye("las la-eye");
+  }
+  function hideMyPassword() {
+    setPasswordType("password");
+    setEye("las la-eye-slash");
+  }
+
   return (
     <>
       {isLoading && (
@@ -62,7 +73,7 @@ function UserLogin({ auth, setAuth }) {
           </h1>
           <form onSubmit={HandleSubmit}>
             <div className={styles.inputicon}>
-              <i id={styles.icons} class="las la-envelope"></i>
+              <i id={styles.iconss} class="las la-envelope"></i>
               <Input
                 className={styles.inputfield}
                 type={"email"}
@@ -74,17 +85,22 @@ function UserLogin({ auth, setAuth }) {
               />
             </div>
             <div className={styles.inputicon}>
-              <i id={styles.icons} class="las la-lock"></i>
+              <i id={styles.iconss} class="las la-lock"></i>
               <Input
                 className={styles.inputfield}
-                type={"password"}
+                type={passwordType}
                 placeholder={"Password"}
                 error={passwordError}
                 errorclassname={styles.error}
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
               />
-              <i id={styles.eye} class="las la-eye-slash"></i>
+              <i
+                onMouseOver={showMyPassword}
+                onMouseLeave={hideMyPassword}
+                id={styles.eye}
+                class={eye}
+              ></i>
             </div>
             <h6>Forgot password?</h6>
             <Btn className={styles.button} content={"SIGN IN"} />

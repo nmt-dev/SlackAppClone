@@ -22,9 +22,6 @@ function Kausap() {
   } = useContext(ChannelsContext);
   const { usersList } = useContext(UsersContext);
   const { setIsOpenChannelMembers } = useContext(OpennerContext);
-  function handleClick() {
-    alert(channelMembers);
-  }
 
   function funcdisplayChannelMembers() {
     let newwww = channelMembers.map((obj) => obj.user_id);
