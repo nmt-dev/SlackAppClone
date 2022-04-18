@@ -59,8 +59,8 @@ function App() {
   const mObject = { messengerObject, setMessengerObject };
 
   //messenger messages
-  const [messengerMessages, setmessengerMessages] = useState();
-  const myMessengerMessages = { messengerMessages, setmessengerMessages };
+  const [messengerMessages, setMessengerMessages] = useState();
+  const myMessengerMessages = { messengerMessages, setMessengerMessages };
 
   //userslist
   const [userChannels, setUserChannels] = useState([]);

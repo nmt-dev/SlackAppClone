@@ -73,7 +73,6 @@ function PopUp({ updateMe }) {
     setIsOpen(false);
     setMessenger(chosenUser);
     updateMe();
-    // alert("kausap set");
   }
 
   function togglePopChannels(e) {
@@ -83,7 +82,7 @@ function PopUp({ updateMe }) {
 
     setTimeout(() => {
       setIsOpenChannel(false);
-    }, 3000);
+    }, 500);
   }
 
   function handleChannelNameChange() {
