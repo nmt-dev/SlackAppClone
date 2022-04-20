@@ -6,12 +6,10 @@ import Success from "../Success";
 import { useNavigate } from "react-router-dom";
 import API from "../../Utils/API";
 import { useContext } from "react";
-import { UserContext } from "../../Context/UserContext";
 import { LoggedInUserContext } from "../../Context/LoggedInUserContext";
 //<i class="las la-eye"></i>
 function UserLogin({ auth, setAuth }) {
-  const { userHeaders, setUserHeaders } = useContext(UserContext);
-  const { loggedInUser, setLoggedInUser } = useContext(LoggedInUserContext);
+  const { setLoggedInUser, setUserHeaders } = useContext(LoggedInUserContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

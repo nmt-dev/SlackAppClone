@@ -3,25 +3,13 @@ import Btn from "../General/Button";
 import styles from "./Channels.module.scss";
 import { ChannelsContext } from "../../Context/ChannelsContext";
 import { useContext } from "react";
-import { UserContext } from "../../Context/UserContext";
-import API from "../../Utils/API";
-import { useEffect } from "react";
-import { MessengerMessagesContext } from "../../Context/MessagesContext copy";
-import { MessengerContext } from "../../Context/MessengerContext";
-function Channels({ update }) {
-  const { userHeaders, setUserHeaders } = useContext(UserContext);
-  const {
-    userChannels,
-    setUserChannels,
-    chosenChannel,
-    setChosenChannel,
-    selectedChannel,
-    setSelectedChannel,
-  } = useContext(ChannelsContext);
-  const { messengerMessages, setmessengerMessages } = useContext(
-    MessengerMessagesContext
-  );
-  const { messenger, setMessenger } = useContext(MessengerContext);
+
+import { MessengerMessagesContext } from "../../Context/MessagesContext";
+
+function Channels() {
+  const { userChannels, setUserChannels, chosenChannel, setChosenChannel } =
+    useContext(ChannelsContext);
+  const { setMessenger } = useContext(MessengerMessagesContext);
 
   const [foundChannel, setFoundChannel] = useState();
 

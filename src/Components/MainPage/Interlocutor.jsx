@@ -2,25 +2,18 @@ import React from "react";
 import styles from "./Interlocutor.module.scss";
 import Img from "../General/Img";
 import profilepic from "../../Assets/Images/profilepic.png";
-import { MessengerContext } from "../../Context/MessengerContext";
+
 import { useContext } from "react";
 import nameFormatter from "../../Utils/Nameformatter";
-import { MessengerMessagesContext } from "../../Context/MessagesContext copy";
-import { MessengerObjectContext } from "../../Context/MessengerObjectContext";
 import { ChannelsContext } from "../../Context/ChannelsContext";
-import { UsersContext } from "../../Context/UsersContext";
-import PopUp from "../PopUp/PopUp";
 import { OpennerContext } from "../../Context/OpennerContext";
+import { LoggedInUserContext } from "../../Context/LoggedInUserContext";
+import { MessengerMessagesContext } from "../../Context/MessagesContext";
 function Kausap() {
-  const { messenger, setmessenger } = useContext(MessengerContext);
-  const { messengerObject } = useContext(MessengerObjectContext);
-  const {
-    channelMembers,
-    setChannelMembers,
-    displayChannelMembers,
-    setDisplayChannelMembers,
-  } = useContext(ChannelsContext);
-  const { usersList } = useContext(UsersContext);
+  const { messenger, messengerObject } = useContext(MessengerMessagesContext);
+  const { channelMembers, setDisplayChannelMembers } =
+    useContext(ChannelsContext);
+  const { usersList } = useContext(LoggedInUserContext);
   const { setIsOpenChannelMembers } = useContext(OpennerContext);
 
   function funcdisplayChannelMembers() {

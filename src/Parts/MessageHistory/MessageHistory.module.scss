@@ -6,3 +6,12 @@
   height: 70vh;
   overflow-y: scroll;
 }
+
+.messagesContainer::-webkit-scrollbar {
+  width: 0.6em;
+}
+.messagesContainer::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+  border-radius: 10px;
+}

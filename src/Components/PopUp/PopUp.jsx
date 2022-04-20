@@ -5,12 +5,10 @@ import { useContext } from "react";
 import { OpennerContext } from "../../Context/OpennerContext";
 import Input from "../General/Input";
 import UserListGenerator from "../../Utils/UserListGenerator";
-import { UsersContext } from "../../Context/UsersContext";
-import { MessengerContext } from "../../Context/MessengerContext";
-import { MessengerObjectContext } from "../../Context/MessengerObjectContext";
 import { ChannelsContext } from "../../Context/ChannelsContext";
 import API from "../../Utils/API";
-import { UserContext } from "../../Context/UserContext";
+import { LoggedInUserContext } from "../../Context/LoggedInUserContext";
+import { MessengerMessagesContext } from "../../Context/MessagesContext";
 
 function PopUp({ updateMe }) {
   const {
@@ -21,18 +19,18 @@ function PopUp({ updateMe }) {
     isOpenChannelMembers,
     setIsOpenChannelMembers,
   } = useContext(OpennerContext);
-  const { usersList, setUsersList } = useContext(UsersContext);
-  const { messenger, setMessenger } = useContext(MessengerContext);
-  const { addThisChannel, setAddThisChannel } = useContext(ChannelsContext);
+  const {} = useContext(LoggedInUserContext);
+  const { setMessenger, messengerObject } = useContext(
+    MessengerMessagesContext
+  );
+  const { setAddThisChannel } = useContext(ChannelsContext);
   const [chosenUser, setChosenUser] = useState();
   const [channelName, setChannelName] = useState();
   const [channelMembers, setChannelMembers] = useState([{ user_ids: "" }]);
-  const { userHeaders, setUSerHeaders } = useContext(UserContext);
+  const { userHeaders, usersList } = useContext(LoggedInUserContext);
   const { displayChannelMembers, setDisplayChannelMembers } =
     useContext(ChannelsContext);
-  const { messengerObject, setMessengerObject } = useContext(
-    MessengerObjectContext
-  );
+
   function addChannelMembers() {
     setChannelMembers([...channelMembers, { user_ids: "" }]);
     console.log("add input");

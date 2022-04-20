@@ -3,17 +3,14 @@ import styles from "../TextArea/TextArea.module.scss";
 import Btn from "../../Components/General/Button";
 import API from "../../Utils/API";
 import { useContext } from "react";
-import { UserContext } from "../../Context/UserContext";
-import { MessengerObjectContext } from "../../Context/MessengerObjectContext";
-import { MessengerContext } from "../../Context/MessengerContext";
+
 import { UpdateContext } from "../../Context/SendMessageContext";
+import { LoggedInUserContext } from "../../Context/LoggedInUserContext";
+import { MessengerMessagesContext } from "../../Context/MessagesContext";
 
 function TextArea({ updateMe }) {
-  const { userHeaders, setUserHeaders } = useContext(UserContext);
-  const { messengerObject, setMessengerObject } = useContext(
-    MessengerObjectContext
-  );
-  const { messenger, setMessenger } = useContext(MessengerContext);
+  const { userHeaders } = useContext(LoggedInUserContext);
+  const { messenger, messengerObject } = useContext(MessengerMessagesContext);
   const { sendMessageUpdate, setSendMessageUpdate } = useContext(UpdateContext);
   const [textBody, setTextBody] = useState();
 
