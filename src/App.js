@@ -17,6 +17,7 @@ import { LoggedInUserContext } from "./Context/LoggedInUserContext";
 import { MessagesContext } from "./Context/MessagesContext";
 import { MessengerObjectContext } from "./Context/MessengerObjectContext";
 import { MessengerMessagesContext } from "./Context/MessagesContext copy";
+import { UpdateContext } from "./Context/SendMessageContext";
 
 function App() {
   const [auth, setAuth] = useState(null);
@@ -81,6 +82,10 @@ function App() {
     setDisplayChannelMembers,
   };
 
+  //updatemessages
+  const [sendMessageUpdate, setSendMessageUpdate] = useState();
+  const myUpdate = { sendMessageUpdate, setSendMessageUpdate };
+
   return (
     <>
       <Routes>
@@ -116,7 +121,7 @@ function App() {
         <Route
           path="/SlackPage"
           element={
-            <PrivateRoute auth={auth}>
+            <PrivateRoute auth={auth} setAuth={setAuth}>
               <LoggedInUserContext.Provider value={myloggedIn}>
                 <ChannelsContext.Provider value={myChannels}>
                   <MessengerObjectContext.Provider value={mObject}>
@@ -125,13 +130,15 @@ function App() {
                     >
                       <MessengerContext.Provider value={myMessenger}>
                         <OpennerContext.Provider value={opener}>
-                          <UserContext.Provider value={value}>
-                            <UsersContext.Provider value={usersListprops}>
-                              <MessagesContext.Provider value={Message}>
-                                <SlackPage />
-                              </MessagesContext.Provider>
-                            </UsersContext.Provider>
-                          </UserContext.Provider>
+                          <UpdateContext.Provider value={myUpdate}>
+                            <UserContext.Provider value={value}>
+                              <UsersContext.Provider value={usersListprops}>
+                                <MessagesContext.Provider value={Message}>
+                                  <SlackPage setAuth={setAuth} />
+                                </MessagesContext.Provider>
+                              </UsersContext.Provider>
+                            </UserContext.Provider>
+                          </UpdateContext.Provider>
                         </OpennerContext.Provider>
                       </MessengerContext.Provider>
                     </MessengerMessagesContext.Provider>

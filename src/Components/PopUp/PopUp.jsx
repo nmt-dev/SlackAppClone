@@ -78,11 +78,11 @@ function PopUp({ updateMe }) {
   function togglePopChannels(e) {
     e.preventDefault();
     axiosCreateChannel();
-    setMessenger(channelName);
 
     setTimeout(() => {
+      setMessenger(channelName);
       setIsOpenChannel(false);
-    }, 500);
+    }, 1500);
   }
 
   function handleChannelNameChange() {
@@ -121,6 +121,7 @@ function PopUp({ updateMe }) {
     console.log("membersadd");
     axiosChannelAddMembers();
     setIsOpenChannelMembers(false);
+    updateMe();
   }
 
   return (
