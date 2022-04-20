@@ -5,16 +5,16 @@ import SearchBar from "../../Components/TopBar/SearchBar";
 import styles from "../TopBar/TopBar.module.scss";
 
 import { useContext } from "react";
-import { UserContext } from "../../Context/UserContext";
 import nameFormatter from "../../Utils/Nameformatter";
-import { MessengerContext } from "../../Context/MessengerContext";
+import { LoggedInUserContext } from "../../Context/LoggedInUserContext";
+import { MessengerMessagesContext } from "../../Context/MessagesContext";
 function TopBar({ setAuth }) {
-  const { messenger, setMessenger } = useContext(MessengerContext);
+  const { messenger, setMessenger } = useContext(MessengerMessagesContext);
   function logOutUser() {
     setAuth(null);
     setMessenger("");
   }
-  const { userHeaders, setUserHeaders } = useContext(UserContext);
+  const { userHeaders } = useContext(LoggedInUserContext);
   return (
     <>
       <div className={styles.contain}>

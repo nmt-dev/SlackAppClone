@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import TopBarLanding from "../Components/TopBar/Topbarlanding";
-import Btn from "../Components/General/Button";
-import Img from "../Components/General/Img";
-import team from "../Assets/Images/team.png";
-import styles from "../Pages/LandingPage.module.scss";
+import TopBarLanding from "../../Components/TopBar/Topbarlanding";
+import Btn from "../../Components/General/Button";
+import Img from "../../Components/General/Img";
+import team from "../../Assets/Images/team.png";
+import styles from "../LandingPage/LandingPage.module.scss";
 
 function LandingPage() {
   const navigate = useNavigate();

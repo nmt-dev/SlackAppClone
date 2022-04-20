@@ -3,20 +3,15 @@ import Message from "../../Components/MainPage/Message";
 import Kausap from "../../Components/MainPage/Interlocutor";
 import styles from "./MessageHistory.module.scss";
 import { useContext } from "react";
-import { MessagesContext } from "../../Context/MessagesContext";
-import { MessengerMessagesContext } from "../../Context/MessagesContext copy";
+import { MessengerMessagesContext } from "../../Context/MessagesContext";
 import { LoggedInUserContext } from "../../Context/LoggedInUserContext";
-import { MessengerObjectContext } from "../../Context/MessengerObjectContext";
 import nameFormatter from "../../Utils/Nameformatter";
-import { toBeInTheDocument } from "@testing-library/jest-dom/dist/matchers";
 import API from "../../Utils/API";
 import { ChannelsContext } from "../../Context/ChannelsContext";
-import { UserContext } from "../../Context/UserContext";
 import { UpdateContext } from "../../Context/SendMessageContext";
-import { MessengerContext } from "../../Context/MessengerContext";
 
 function MessageHistory({ update }) {
-  const { userHeaders, setUserHeaders } = useContext(UserContext);
+  const { userHeaders } = useContext(LoggedInUserContext);
   const {
     userChannels,
     setUserChannels,
@@ -25,17 +20,14 @@ function MessageHistory({ update }) {
     channelMembers,
     setChannelMembers,
   } = useContext(ChannelsContext);
-  const { messenger, setMessenger } = useContext(MessengerContext);
   const { sendMessageUpdate, setSendMessageUpdate } = useContext(UpdateContext);
 
-  const { userMessages } = useContext(MessagesContext);
-  const { messengerMessages, setMessengerMessages } = useContext(
-    MessengerMessagesContext
-  );
-  const { loggedInUser, setLoggedInUser } = useContext(LoggedInUserContext);
-  const { messengerObject, setMessengerObject } = useContext(
-    MessengerObjectContext
-  );
+  const {
+    messenger,
+    messengerMessages,
+    setMessengerMessages,
+    messengerObject,
+  } = useContext(MessengerMessagesContext);
 
   const axiosGetChannelMessages = async (chosen) => {
     if (!JSON.stringify(messenger).includes("@")) {

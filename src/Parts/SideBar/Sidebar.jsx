@@ -5,7 +5,6 @@ import Company from "../../Components/SideBar/Company";
 import styles from "../SideBar/Sidebar.module.scss";
 import { useContext } from "react";
 import { OpennerContext } from "../../Context/OpennerContext";
-import { UserContext } from "../../Context/UserContext";
 
 function SideBar({ update }) {
   const { isOpen, setIsOpen, isOpenChannel, setIsOpenChannel } =

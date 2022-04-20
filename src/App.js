@@ -1,30 +1,33 @@
-import LandingPage from "../src/Pages/LandingPage";
+import LandingPage from "./Pages/LandingPage/LandingPage";
 import SignUp from "./Components/Signup/Signup";
-import SlackPage from "./Pages/SlackPage";
+import SlackPage from "./Pages/SlackPage/SlackPage";
 import PrivateRoute from "./Routes/PrivateRoute";
 import PublicRoute from "./Routes/PublicRoute";
-
-import { Route, Routes, Navigate } from "react-router-dom";
-import UserLogin from "./Components/Login/Login";
-import { useState } from "react";
-import Success from "./Components/Success";
-import { UserContext } from "./Context/UserContext";
+import { Route, Routes } from "react-router-dom";
 import { ChannelsContext } from "./Context/ChannelsContext";
 import { OpennerContext } from "./Context/OpennerContext";
-import { UsersContext } from "./Context/UsersContext";
-import { MessengerContext } from "./Context/MessengerContext";
 import { LoggedInUserContext } from "./Context/LoggedInUserContext";
-import { MessagesContext } from "./Context/MessagesContext";
-import { MessengerObjectContext } from "./Context/MessengerObjectContext";
-import { MessengerMessagesContext } from "./Context/MessagesContext copy";
+import { MessengerMessagesContext } from "./Context/MessagesContext";
 import { UpdateContext } from "./Context/SendMessageContext";
+import { useState } from "react";
+import UserLogin from "./Components/Login/Login";
+import Success from "./Components/Success";
 
 function App() {
   const [auth, setAuth] = useState(null);
-
-  //signin headers
+  /////loggedinusercontext
+  //loggedinuser
+  const [loggedInUser, setLoggedInUser] = useState();
   const [userHeaders, setUserHeaders] = useState();
-  const value = { userHeaders, setUserHeaders };
+  const [usersList, setUsersList] = useState([]);
+  const myloggedIn = {
+    loggedInUser,
+    setLoggedInUser,
+    userHeaders,
+    setUserHeaders,
+    usersList,
+    setUsersList,
+  };
 
   //popup isopen
   const [isOpen, setIsOpen] = useState(false);
@@ -39,29 +42,18 @@ function App() {
     setIsOpenChannelMembers,
   };
 
-  //userslist
-  const [usersList, setUsersList] = useState([]);
-  const usersListprops = { usersList, setUsersList };
-
-  //messenger delete?
-  const [messenger, setMessenger] = useState();
-  const myMessenger = { messenger, setMessenger };
-
-  //loggedinuser
-  const [loggedInUser, setLoggedInUser] = useState();
-  const myloggedIn = { loggedInUser, setLoggedInUser };
-
-  //recieved messages delete
-  const [userMessages, setUserMessages] = useState();
-  const Message = { userMessages, setUserMessages };
-
-  //messenger object
-  const [messengerObject, setMessengerObject] = useState();
-  const mObject = { messengerObject, setMessengerObject };
-
   //messenger messages
   const [messengerMessages, setMessengerMessages] = useState();
-  const myMessengerMessages = { messengerMessages, setMessengerMessages };
+  const [messenger, setMessenger] = useState();
+  const [messengerObject, setMessengerObject] = useState();
+  const messages = {
+    messengerMessages,
+    setMessengerMessages,
+    messenger,
+    setMessenger,
+    messengerObject,
+    setMessengerObject,
+  };
 
   //userslist
   const [userChannels, setUserChannels] = useState([]);
@@ -82,7 +74,7 @@ function App() {
     setDisplayChannelMembers,
   };
 
-  //updatemessages
+  //update
   const [sendMessageUpdate, setSendMessageUpdate] = useState();
   const myUpdate = { sendMessageUpdate, setSendMessageUpdate };
 
@@ -110,9 +102,7 @@ function App() {
           element={
             <PublicRoute auth={auth}>
               <LoggedInUserContext.Provider value={myloggedIn}>
-                <UserContext.Provider value={value}>
-                  <UserLogin auth={auth} setAuth={setAuth} />
-                </UserContext.Provider>
+                <UserLogin auth={auth} setAuth={setAuth} />
               </LoggedInUserContext.Provider>
             </PublicRoute>
           }
@@ -124,25 +114,13 @@ function App() {
             <PrivateRoute auth={auth} setAuth={setAuth}>
               <LoggedInUserContext.Provider value={myloggedIn}>
                 <ChannelsContext.Provider value={myChannels}>
-                  <MessengerObjectContext.Provider value={mObject}>
-                    <MessengerMessagesContext.Provider
-                      value={myMessengerMessages}
-                    >
-                      <MessengerContext.Provider value={myMessenger}>
-                        <OpennerContext.Provider value={opener}>
-                          <UpdateContext.Provider value={myUpdate}>
-                            <UserContext.Provider value={value}>
-                              <UsersContext.Provider value={usersListprops}>
-                                <MessagesContext.Provider value={Message}>
-                                  <SlackPage setAuth={setAuth} />
-                                </MessagesContext.Provider>
-                              </UsersContext.Provider>
-                            </UserContext.Provider>
-                          </UpdateContext.Provider>
-                        </OpennerContext.Provider>
-                      </MessengerContext.Provider>
-                    </MessengerMessagesContext.Provider>
-                  </MessengerObjectContext.Provider>
+                  <MessengerMessagesContext.Provider value={messages}>
+                    <OpennerContext.Provider value={opener}>
+                      <UpdateContext.Provider value={myUpdate}>
+                        <SlackPage setAuth={setAuth} />
+                      </UpdateContext.Provider>
+                    </OpennerContext.Provider>
+                  </MessengerMessagesContext.Provider>
                 </ChannelsContext.Provider>
               </LoggedInUserContext.Provider>
             </PrivateRoute>
