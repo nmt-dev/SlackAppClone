@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
 import { MessengerObjectContext } from "../../Context/MessengerObjectContext";
 import { MessengerContext } from "../../Context/MessengerContext";
+import { UpdateContext } from "../../Context/SendMessageContext";
 
 function TextArea({ updateMe }) {
   const { userHeaders, setUserHeaders } = useContext(UserContext);
@@ -13,7 +14,7 @@ function TextArea({ updateMe }) {
     MessengerObjectContext
   );
   const { messenger, setMessenger } = useContext(MessengerContext);
-
+  const { sendMessageUpdate, setSendMessageUpdate } = useContext(UpdateContext);
   const [textBody, setTextBody] = useState();
 
   const axiosSendChannel = async () => {
@@ -29,6 +30,7 @@ function TextArea({ updateMe }) {
       console.log(`send message error ${err}`);
     });
     console.log(channelMessage);
+    setSendMessageUpdate(!sendMessageUpdate);
   };
 
   const axiosSendMessage = async () => {
@@ -46,16 +48,15 @@ function TextArea({ updateMe }) {
       console.log(`send message error ${err}`);
     });
     console.log(MessageSent);
+    setSendMessageUpdate(!sendMessageUpdate);
   };
 
   const sendmessage = (e) => {
     e.preventDefault();
     if (JSON.stringify(messenger).includes("@")) {
       axiosSendMessage();
-      updateMe();
     } else {
       axiosSendChannel();
-      updateMe();
     }
     setTextBody("");
   };
