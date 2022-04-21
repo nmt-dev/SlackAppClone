@@ -63,7 +63,7 @@ function MessageHistory({ update }) {
 
   return (
     <>
-      <Kausap />
+      <Kausap update={update} />
       <div id="data" className={styles.messagesContainer}>
         {messengerMessages &&
           messengerMessages.map((messages, i) => {

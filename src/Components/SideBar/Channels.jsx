@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Btn from "../General/Button";
 import styles from "./Channels.module.scss";
 import { ChannelsContext } from "../../Context/ChannelsContext";
 import { useContext } from "react";
-
 import { MessengerMessagesContext } from "../../Context/MessagesContext";
+import { LoggedInUserContext } from "../../Context/LoggedInUserContext";
+import API from "../../Utils/API";
 
-function Channels() {
-  const { userChannels, setChosenChannel } = useContext(ChannelsContext);
-  const { setMessenger } = useContext(MessengerMessagesContext);
+function Channels({ update }) {
+  const { userChannels, setUserChannels, setChosenChannel, setChannelMembers } =
+    useContext(ChannelsContext);
+  const { messengerObject, setMessenger, messenger } = useContext(
+    MessengerMessagesContext
+  );
+  const { loggedInUser, userHeaders } = useContext(LoggedInUserContext);
 
   const foundChannelFunction = (e) => {
     console.log(e.target.innerText);
@@ -18,6 +23,35 @@ function Channels() {
     setChosenChannel(chosen.id);
     setMessenger(chosen.name);
   };
+  //get channel details
+  useEffect(() => {
+    if (messengerObject) {
+      API.get(`/channels/${messengerObject.id}`, {
+        headers: userHeaders,
+      })
+        .then((response) => {
+          setChannelMembers(response.data.data.channel_members);
+        })
+        .catch((err) => {
+          console.log(`getchanneldetails ${err}`);
+        });
+    }
+  }, [messengerObject, update]);
+
+  //get userchannels
+  useEffect(() => {
+    if (loggedInUser) {
+      API.get("/channels", {
+        headers: userHeaders,
+      })
+        .then((response) => {
+          setUserChannels(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [loggedInUser, update, messenger]);
 
   return (
     <>
