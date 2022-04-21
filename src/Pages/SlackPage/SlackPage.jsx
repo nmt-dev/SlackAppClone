@@ -12,7 +12,6 @@ import API from "../../Utils/API";
 
 import { LoggedInUserContext } from "../../Context/LoggedInUserContext";
 import { MessengerMessagesContext } from "../../Context/MessagesContext";
-import { UpdateContext } from "../../Context/SendMessageContext";
 
 function SlackPage({ auth, setAuth }) {
   const {
@@ -28,7 +27,7 @@ function SlackPage({ auth, setAuth }) {
   const { messenger, messengerObject, setMessengerObject } = useContext(
     MessengerMessagesContext
   );
-  const { sendMessageUpdate, setSendMessageUpdate } = useContext(UpdateContext);
+
   const {
     userChannels,
     setUserChannels,
@@ -71,7 +70,6 @@ function SlackPage({ auth, setAuth }) {
     });
     if (getChannels.status === 200) {
       setUserChannels(getChannels.data);
-
       console.log(getChannels.data);
     }
   };
@@ -97,7 +95,7 @@ function SlackPage({ auth, setAuth }) {
 
   useEffect(() => {
     if (messengerObject) axiosGetChannelDetails();
-  }, [messengerObject]);
+  }, [messengerObject, update]);
   //get users
   useEffect(() => {
     axiosGetUsers();
@@ -116,7 +114,7 @@ function SlackPage({ auth, setAuth }) {
         console.log(userChannels.data.length);
       }
     }
-  }, [messenger]);
+  }, [messenger, update]);
 
   return (
     <>

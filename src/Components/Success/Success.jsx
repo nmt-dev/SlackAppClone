@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
-import ChangingProgressProvider from "../Utils/ChangingProgressProvider.js";
+import ChangingProgressProvider from "../../Utils/ChangingProgressProvider.js";
 import { buildStyles } from "react-circular-progressbar";
 import styles from "./Success.module.scss";
 

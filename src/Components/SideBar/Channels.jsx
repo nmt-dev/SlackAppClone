@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Btn from "../General/Button";
 import styles from "./Channels.module.scss";
 import { ChannelsContext } from "../../Context/ChannelsContext";
@@ -7,11 +7,8 @@ import { useContext } from "react";
 import { MessengerMessagesContext } from "../../Context/MessagesContext";
 
 function Channels() {
-  const { userChannels, setUserChannels, chosenChannel, setChosenChannel } =
-    useContext(ChannelsContext);
+  const { userChannels, setChosenChannel } = useContext(ChannelsContext);
   const { setMessenger } = useContext(MessengerMessagesContext);
-
-  const [foundChannel, setFoundChannel] = useState();
 
   const foundChannelFunction = (e) => {
     console.log(e.target.innerText);

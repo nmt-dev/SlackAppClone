@@ -3,58 +3,55 @@ import styles from "../TextArea/TextArea.module.scss";
 import Btn from "../../Components/General/Button";
 import API from "../../Utils/API";
 import { useContext } from "react";
-
-import { UpdateContext } from "../../Context/SendMessageContext";
 import { LoggedInUserContext } from "../../Context/LoggedInUserContext";
 import { MessengerMessagesContext } from "../../Context/MessagesContext";
 
 function TextArea({ updateMe }) {
   const { userHeaders } = useContext(LoggedInUserContext);
   const { messenger, messengerObject } = useContext(MessengerMessagesContext);
-  const { sendMessageUpdate, setSendMessageUpdate } = useContext(UpdateContext);
   const [textBody, setTextBody] = useState();
 
-  const axiosSendChannel = async () => {
-    const channelMessage = await API.post(
-      "/messages",
-      {
-        receiver_id: messengerObject.id,
-        receiver_class: "Channel",
-        body: textBody,
-      },
-      { headers: userHeaders }
-    ).catch((err) => {
-      console.log(`send message error ${err}`);
-    });
-    console.log(channelMessage);
-    setSendMessageUpdate(!sendMessageUpdate);
-  };
-
   const axiosSendMessage = async () => {
-    const MessageSent = await API.post(
-      "/messages",
-      {
-        receiver_id: messengerObject.id,
-        receiver_class: "User",
-        body: textBody,
-      },
-      {
-        headers: userHeaders,
-      }
-    ).catch((err) => {
-      console.log(`send message error ${err}`);
-    });
-    console.log(MessageSent);
-    setSendMessageUpdate(!sendMessageUpdate);
+    switch (JSON.stringify(messenger).includes("@")) {
+      case true:
+        const MessageSent = await API.post(
+          "/messages",
+          {
+            receiver_id: messengerObject.id,
+            receiver_class: "User",
+            body: textBody,
+          },
+          {
+            headers: userHeaders,
+          }
+        ).catch((err) => {
+          console.log(`send message error ${err}`);
+        });
+        console.log(MessageSent);
+        updateMe();
+        break;
+      case false:
+        const channelMessage = await API.post(
+          "/messages",
+          {
+            receiver_id: messengerObject.id,
+            receiver_class: "Channel",
+            body: textBody,
+          },
+          { headers: userHeaders }
+        ).catch((err) => {
+          console.log(`send message error ${err}`);
+        });
+        console.log(channelMessage);
+        updateMe();
+
+        break;
+    }
   };
 
   const sendmessage = (e) => {
     e.preventDefault();
-    if (JSON.stringify(messenger).includes("@")) {
-      axiosSendMessage();
-    } else {
-      axiosSendChannel();
-    }
+    axiosSendMessage();
     setTextBody("");
   };
 

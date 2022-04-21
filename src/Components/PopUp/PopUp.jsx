@@ -19,21 +19,53 @@ function PopUp({ updateMe }) {
     isOpenChannelMembers,
     setIsOpenChannelMembers,
   } = useContext(OpennerContext);
-  const {} = useContext(LoggedInUserContext);
+
   const { setMessenger, messengerObject } = useContext(
     MessengerMessagesContext
   );
+  const { userHeaders, usersList } = useContext(LoggedInUserContext);
+  const { displayChannelMembers } = useContext(ChannelsContext);
   const { setAddThisChannel } = useContext(ChannelsContext);
   const [chosenUser, setChosenUser] = useState();
   const [channelName, setChannelName] = useState();
   const [channelMembers, setChannelMembers] = useState([{ user_ids: "" }]);
-  const { userHeaders, usersList } = useContext(LoggedInUserContext);
-  const { displayChannelMembers, setDisplayChannelMembers } =
-    useContext(ChannelsContext);
 
   function addChannelMembers() {
     setChannelMembers([...channelMembers, { user_ids: "" }]);
     console.log("add input");
+  }
+
+  function handleChannelNameChange() {
+    setAddThisChannel(channelName);
+    console.log(channelName);
+  }
+
+  function handleChange(i, e) {
+    let newChannelMembers = [...channelMembers];
+    newChannelMembers[i][e.target.name] = e.target.value;
+    setChannelMembers(newChannelMembers);
+  }
+
+  function handleBlur(i, e) {
+    let onDataList = usersList.find((obj) => obj.uid === e.target.value);
+    if (onDataList !== undefined) {
+      let newChannelMembers = [...channelMembers];
+      newChannelMembers[i][e.target.name] = onDataList.id;
+      setChannelMembers(newChannelMembers);
+    } else {
+      alert("email not found");
+      e.target.value = "";
+      let newChannelMembers = [...channelMembers];
+      newChannelMembers[i][e.target.name] = "";
+    }
+  }
+
+  function addmemmbersssss(e) {
+    e.preventDefault();
+    console.log("membersadd");
+    axiosChannelAddMembers();
+    setIsOpenChannelMembers(false);
+    updateMe();
   }
 
   const axiosCreateChannel = async () => {
@@ -78,48 +110,14 @@ function PopUp({ updateMe }) {
     axiosCreateChannel();
 
     setTimeout(() => {
-      setMessenger(channelName);
       setIsOpenChannel(false);
-    }, 1500);
-  }
-
-  function handleChannelNameChange() {
-    setAddThisChannel(channelName);
-    console.log(channelName);
+    }, 2000);
   }
 
   function closePopUp() {
     setIsOpen(false);
     setIsOpenChannel(false);
     setIsOpenChannelMembers(false);
-  }
-
-  function handleChange(i, e) {
-    let newChannelMembers = [...channelMembers];
-    newChannelMembers[i][e.target.name] = e.target.value;
-    setChannelMembers(newChannelMembers);
-  }
-
-  function handleBlur(i, e) {
-    let onDataList = usersList.find((obj) => obj.uid == e.target.value);
-    if (onDataList !== undefined) {
-      let newChannelMembers = [...channelMembers];
-      newChannelMembers[i][e.target.name] = onDataList.id;
-      setChannelMembers(newChannelMembers);
-    } else {
-      alert("email not found");
-      e.target.value = "";
-      let newChannelMembers = [...channelMembers];
-      newChannelMembers[i][e.target.name] = "";
-    }
-  }
-
-  function addmemmbersssss(e) {
-    e.preventDefault();
-    console.log("membersadd");
-    axiosChannelAddMembers();
-    setIsOpenChannelMembers(false);
-    updateMe();
   }
 
   return (
