@@ -3,12 +3,17 @@ import Img from "../General/Img";
 import profilepic from "../../Assets/Images/profilepic.png";
 import styles from "./Message.module.scss";
 import { getDate, getTime } from "../../Utils/DateTimeFormatter";
+import { AvatarGenerator } from "random-avatar-generator";
 
 function Message({ message, sender, time }) {
+  const generator = new AvatarGenerator();
   return (
     <>
       <div className={styles.contain}>
-        <Img link={profilepic} logocontainerclassname={styles.imgcontain} />
+        <img
+          className={styles.imgcontain}
+          src={generator.generateRandomAvatar(`${sender}`)}
+        />
         <div className={styles.sendertime}>
           <div className={styles.sender}>{sender}</div>
           <div className={styles.ttime}>{`${getDate(time)} ${getTime(

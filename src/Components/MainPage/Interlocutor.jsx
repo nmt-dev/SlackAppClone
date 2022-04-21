@@ -9,6 +9,8 @@ import { LoggedInUserContext } from "../../Context/LoggedInUserContext";
 import { MessengerMessagesContext } from "../../Context/MessagesContext";
 import nameFormatter from "../../Utils/Nameformatter";
 
+import { AvatarGenerator } from "random-avatar-generator";
+
 function Kausap({ update }) {
   const { messenger, messengerObject, setMessengerObject } = useContext(
     MessengerMessagesContext
@@ -42,12 +44,17 @@ function Kausap({ update }) {
       }
     }
   }, [messenger, update]);
-
+  const avatar = new AvatarGenerator();
   return (
     <>
       <div className={styles.contain}>
         <div className={styles.imgname}>
-          <Img link={profilepic} logocontainerclassname={styles.imgcontain} />
+          {messenger && (
+            <img
+              className={styles.imgcontain}
+              src={avatar.generateRandomAvatar(`${messenger}`)}
+            />
+          )}
           {messenger && (
             <h1 className={styles.textkausap}>{nameFormatter(messenger)}</h1>
           )}
