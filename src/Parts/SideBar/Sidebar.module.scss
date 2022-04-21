@@ -43,3 +43,15 @@
 .button:hover {
   opacity: 1;
 }
+
+#write {
+  font-size: 35px;
+  padding-right: 15px;
+  opacity: 0.8;
+  color: $evenhandlers-color;
+}
+
+#write:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}

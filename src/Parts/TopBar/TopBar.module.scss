@@ -3,36 +3,22 @@
 
 .contain {
   display: flex;
-  width: 100%;
+  width: 99%;
   height: 100%;
   align-items: center;
+  justify-content: end;
 }
 
-#history,
-#question,
-.logocontain,
-.username {
-  position: absolute;
-  color: $text-color;
-  cursor: pointer;
+.question {
+  width: 1%;
 }
-
-#history {
-  left: 360px;
-}
-
-#question {
-  right: 110px;
-}
-
 .logocontain {
-  right: 80px;
+  margin: 0 1% 0 1%;
   width: 2%;
   border-radius: 8px;
 }
 
 .username {
-  right: 10px;
   padding: 2px;
   border-radius: 4px;
   background-color: $evenhandlers-color;
@@ -42,4 +28,5 @@
 
 .username:hover {
   opacity: 1;
+  cursor: pointer;
 }

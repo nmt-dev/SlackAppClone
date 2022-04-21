@@ -2,14 +2,13 @@ import React from "react";
 import styles from "./Interlocutor.module.scss";
 import Img from "../General/Img";
 import profilepic from "../../Assets/Images/profilepic.png";
-
-import { useContext } from "react";
-import nameFormatter from "../../Utils/Nameformatter";
+import { useContext, useEffect } from "react";
 import { ChannelsContext } from "../../Context/ChannelsContext";
 import { OpennerContext } from "../../Context/OpennerContext";
 import { LoggedInUserContext } from "../../Context/LoggedInUserContext";
 import { MessengerMessagesContext } from "../../Context/MessagesContext";
-import { useEffect } from "react";
+import nameFormatter from "../../Utils/Nameformatter";
+
 function Kausap({ update }) {
   const { messenger, messengerObject, setMessengerObject } = useContext(
     MessengerMessagesContext

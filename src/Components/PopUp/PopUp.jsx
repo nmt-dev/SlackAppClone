@@ -30,6 +30,36 @@ function PopUp({ updateMe }) {
   const [channelName, setChannelName] = useState();
   const [channelMembers, setChannelMembers] = useState([{ user_ids: "" }]);
 
+  const axiosCreateChannel = () => {
+    API.post(
+      "/channels",
+      {
+        name: channelName,
+        user_ids: channelMembers.map((ids) => {
+          return ids.user_ids;
+        }),
+      },
+      { headers: userHeaders }
+    ).catch((err) => {
+      console.log(`add channel error ${err}`);
+    });
+    updateMe();
+  };
+
+  const axiosChannelAddMembers = () => {
+    API.post(
+      "/channel/add_member",
+      {
+        id: messengerObject.id,
+        member_id: channelMembers[0].user_ids,
+      },
+      { headers: userHeaders }
+    ).catch((err) => {
+      console.log(`add member ${err}`);
+    });
+    updateMe();
+  };
+
   function addChannelMembers() {
     setChannelMembers([...channelMembers, { user_ids: "" }]);
     console.log("add input");
@@ -60,7 +90,7 @@ function PopUp({ updateMe }) {
     }
   }
 
-  function addmemmbersssss(e) {
+  function submitAddMembers(e) {
     e.preventDefault();
     console.log("membersadd");
     axiosChannelAddMembers();
@@ -68,52 +98,21 @@ function PopUp({ updateMe }) {
     updateMe();
   }
 
-  const axiosCreateChannel = async () => {
-    const createThisChannel = await API.post(
-      "/channels",
-      {
-        name: channelName,
-        user_ids: channelMembers.map((ids) => {
-          return ids.user_ids;
-        }),
-      },
-      { headers: userHeaders }
-    ).catch((err) => {
-      console.log(`add channel error ${err}`);
-    });
-    updateMe();
-  };
-
-  const axiosChannelAddMembers = async () => {
-    const addMembers = await API.post(
-      "/channel/add_member",
-      {
-        id: messengerObject.id,
-        member_id: channelMembers[0].user_ids,
-      },
-      { headers: userHeaders }
-    ).catch((err) => {
-      console.log(`add member ${err}`);
-    });
-    updateMe();
-  };
-
-  function togglePop(e) {
+  function submitSelectMessenger(e) {
     e.preventDefault();
-    setIsOpen(false);
     setMessenger(chosenUser);
-    updateMe();
+    setIsOpen(false);
   }
 
-  function togglePopChannels(e) {
+  function submitCreateChannel(e) {
     e.preventDefault();
     axiosCreateChannel();
-
+    updateMe();
     setTimeout(() => {
       setIsOpenChannel(false);
     }, 2000);
   }
-
+  //closebutton
   function closePopUp() {
     setIsOpen(false);
     setIsOpenChannel(false);
@@ -126,7 +125,7 @@ function PopUp({ updateMe }) {
         <div className={styles.box}>
           {isOpenChannel && (
             <>
-              <form className={styles.pmform} onSubmit={togglePopChannels}>
+              <form className={styles.pmform} onSubmit={submitCreateChannel}>
                 <div className={styles.channelform}>
                   <h2 className={styles.label}>Channel Name:</h2>
                   <Input
@@ -174,7 +173,7 @@ function PopUp({ updateMe }) {
           {isOpen && (
             <>
               <h2 className={styles.label}>Send To:</h2>
-              <form className={styles.pmform} onSubmit={togglePop}>
+              <form className={styles.pmform} onSubmit={submitSelectMessenger}>
                 <Input
                   list="userlist"
                   className={styles.datalistinputfield}
@@ -203,7 +202,7 @@ function PopUp({ updateMe }) {
                     ))}
                 </ul>
               </div>
-              <form className={styles.pmform} onSubmit={addmemmbersssss}>
+              <form className={styles.pmform} onSubmit={submitAddMembers}>
                 <>
                   <h2 className={styles.label}>Add Members</h2>
                   {channelMembers.map((element, index) => (

@@ -23,8 +23,6 @@ function TopBar({ setAuth }) {
   return (
     <>
       <div className={styles.contain}>
-        <i id={styles.history} class="las la-history"></i>
-        <SearchBar />
         <i id={styles.question} class="lar la-question-circle"></i>
         <Logo link={profilepic} logocontainerclassname={styles.logocontain} />
         <p onClick={logOutUser} className={styles.username}>

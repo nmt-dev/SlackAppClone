@@ -4,8 +4,7 @@ import styles from "./Company.module.scss";
 function Company() {
   return (
     <div className={styles.contain}>
-      <h1 className={styles.textcompany}>Any Company</h1>
-      <i id={styles.write} class="las la-comment-dots"></i>
+      <h1 className={styles.textcompany}>MatSlack</h1>
     </div>
   );
 }

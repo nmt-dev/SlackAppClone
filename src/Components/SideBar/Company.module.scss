@@ -19,6 +19,8 @@
 .textcompany {
   color: $text-color;
   font-size: 20px;
+  position: inherit;
+  color: $evenhandlers-color;
 }
 
 #write {

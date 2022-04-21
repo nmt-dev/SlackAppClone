@@ -1,15 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import MessageHistory from "../../Parts/MessageHistory/MessageHistory";
 import Textarea from "../../Parts/TextArea/TextArea";
 import SideBar from "../../Parts/SideBar/Sidebar";
 import TopBar from "../../Parts/TopBar/Topbar";
-import styles from "./SlackPage.module.scss";
-import { useContext, useState } from "react";
-import { OpennerContext } from "../../Context/OpennerContext";
 import PopUp from "../../Components/PopUp/PopUp";
-import API from "../../Utils/API";
-
+import styles from "./SlackPage.module.scss";
+import { OpennerContext } from "../../Context/OpennerContext";
 import { LoggedInUserContext } from "../../Context/LoggedInUserContext";
+import API from "../../Utils/API";
 
 function SlackPage({ setAuth }) {
   const { userHeaders, setUsersList } = useContext(LoggedInUserContext);
@@ -35,7 +33,7 @@ function SlackPage({ setAuth }) {
       .catch((error) => {
         console.log(error);
       });
-  }, [userHeaders, update]);
+  }, [userHeaders]);
 
   return (
     <>

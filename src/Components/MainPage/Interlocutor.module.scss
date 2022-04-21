@@ -11,9 +11,11 @@
   border-bottom: thin whitesmoke solid;
 }
 .imgname {
+  height: auto;
   display: flex;
-  width: auto;
   align-items: center;
+  justify-content: center;
+  flex-direction: row;
   padding-right: 5px;
 }
 .imgname:hover {
@@ -25,6 +27,12 @@
   color: $text-color;
   font-family: $font-style;
   font-size: 20px;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  align-self: center;
+  justify-self: center;
 }
 
 .imgcontain {
@@ -35,7 +43,7 @@
 }
 #call,
 #members {
-  font-size: 18px;
+  font-size: 20px;
   opacity: 0.5;
 }
 
@@ -44,6 +52,7 @@
   cursor: pointer;
   transform: scale(1.1);
   opacity: 1;
+  color: $evenhandlers-color;
 }
 
 .logoscont {

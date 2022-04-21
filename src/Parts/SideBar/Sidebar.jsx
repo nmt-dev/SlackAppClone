@@ -7,8 +7,7 @@ import { useContext } from "react";
 import { OpennerContext } from "../../Context/OpennerContext";
 
 function SideBar({ update }) {
-  const { isOpen, setIsOpen, isOpenChannel, setIsOpenChannel } =
-    useContext(OpennerContext);
+  const { setIsOpen, setIsOpenChannel } = useContext(OpennerContext);
 
   function togglePop() {
     console.log("toggle open");
@@ -40,7 +39,7 @@ function SideBar({ update }) {
           <Btn
             onClick={togglePop}
             className={styles.button}
-            content={<i class="las la-plus"></i>}
+            content={<i id={styles.write} class="las la-comment-dots"></i>}
           />
         </div>
       </div>
