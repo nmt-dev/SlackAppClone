@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import Input from "../General/Input";
 import styles from "./Login.module.scss";
 import Btn from "../General/Button";
-import Success from "../Success";
+import Success from "../Success/Success";
 import { useNavigate } from "react-router-dom";
 import API from "../../Utils/API";
 import { useContext } from "react";
 import { LoggedInUserContext } from "../../Context/LoggedInUserContext";
-//<i class="las la-eye"></i>
-function UserLogin({ auth, setAuth }) {
+function UserLogin({ setAuth }) {
   const { setLoggedInUser, setUserHeaders } = useContext(LoggedInUserContext);
 
   const [email, setEmail] = useState("");

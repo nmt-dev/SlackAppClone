@@ -3,18 +3,23 @@ import Logo from "../../Components/General/Logo";
 import profilepic from "../../Assets/Images/profilepic.png";
 import SearchBar from "../../Components/TopBar/SearchBar";
 import styles from "../TopBar/TopBar.module.scss";
-
 import { useContext } from "react";
 import nameFormatter from "../../Utils/Nameformatter";
 import { LoggedInUserContext } from "../../Context/LoggedInUserContext";
 import { MessengerMessagesContext } from "../../Context/MessagesContext";
 function TopBar({ setAuth }) {
-  const { messenger, setMessenger } = useContext(MessengerMessagesContext);
+  const { userHeaders } = useContext(LoggedInUserContext);
+  const { setMessenger, setMessengerMessages, setMessengerObject } = useContext(
+    MessengerMessagesContext
+  );
+
   function logOutUser() {
     setAuth(null);
     setMessenger("");
+    setMessengerMessages("");
+    setMessengerObject("");
   }
-  const { userHeaders } = useContext(LoggedInUserContext);
+
   return (
     <>
       <div className={styles.contain}>

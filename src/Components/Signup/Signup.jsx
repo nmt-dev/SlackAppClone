@@ -7,7 +7,7 @@ import team1 from "../../Assets/Images/team1.png";
 import TopBarLanding from "../TopBar/Topbarlanding";
 import { useNavigate } from "react-router-dom";
 import API from "../../Utils/API";
-import Success from "../Success";
+import Success from "../Success/Success";
 
 function SignUp() {
   const [email, setEmail] = useState("");

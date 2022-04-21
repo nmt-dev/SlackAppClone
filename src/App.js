@@ -8,10 +8,9 @@ import { ChannelsContext } from "./Context/ChannelsContext";
 import { OpennerContext } from "./Context/OpennerContext";
 import { LoggedInUserContext } from "./Context/LoggedInUserContext";
 import { MessengerMessagesContext } from "./Context/MessagesContext";
-import { UpdateContext } from "./Context/SendMessageContext";
 import { useState } from "react";
 import UserLogin from "./Components/Login/Login";
-import Success from "./Components/Success";
+import Success from "./Components/Success/Success";
 
 function App() {
   const [auth, setAuth] = useState(null);
@@ -74,10 +73,6 @@ function App() {
     setDisplayChannelMembers,
   };
 
-  //update
-  const [sendMessageUpdate, setSendMessageUpdate] = useState();
-  const myUpdate = { sendMessageUpdate, setSendMessageUpdate };
-
   return (
     <>
       <Routes>
@@ -116,9 +111,7 @@ function App() {
                 <ChannelsContext.Provider value={myChannels}>
                   <MessengerMessagesContext.Provider value={messages}>
                     <OpennerContext.Provider value={opener}>
-                      <UpdateContext.Provider value={myUpdate}>
-                        <SlackPage setAuth={setAuth} />
-                      </UpdateContext.Provider>
+                      <SlackPage setAuth={setAuth} />
                     </OpennerContext.Provider>
                   </MessengerMessagesContext.Provider>
                 </ChannelsContext.Provider>
