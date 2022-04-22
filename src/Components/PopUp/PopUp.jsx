@@ -9,6 +9,7 @@ import { ChannelsContext } from "../../Context/ChannelsContext";
 import API from "../../Utils/API";
 import { LoggedInUserContext } from "../../Context/LoggedInUserContext";
 import { MessengerMessagesContext } from "../../Context/MessagesContext";
+import nameFormatter from "../../Utils/Nameformatter";
 
 function PopUp({ updateMe }) {
   const {
@@ -20,7 +21,7 @@ function PopUp({ updateMe }) {
     setIsOpenChannelMembers,
   } = useContext(OpennerContext);
 
-  const { setMessenger, messengerObject } = useContext(
+  const { messenger, setMessenger, messengerObject } = useContext(
     MessengerMessagesContext
   );
   const { userHeaders, usersList } = useContext(LoggedInUserContext);
@@ -102,6 +103,7 @@ function PopUp({ updateMe }) {
     e.preventDefault();
     setMessenger(chosenUser);
     setIsOpen(false);
+    updateMe();
   }
 
   function submitCreateChannel(e) {
@@ -119,61 +121,28 @@ function PopUp({ updateMe }) {
     setIsOpenChannelMembers(false);
   }
 
+  function selectUserFromMembers(e) {
+    e.preventDefault();
+    setMessenger(chosenUser);
+    setIsOpenChannelMembers(false);
+  }
+
+  function setThisChosenUser(e) {
+    setChosenUser(e.target.textContent);
+  }
   return (
     <>
       <div className={styles.contain}>
         <div className={styles.box}>
-          {isOpenChannel && (
-            <>
-              <form className={styles.pmform} onSubmit={submitCreateChannel}>
-                <div className={styles.channelform}>
-                  <h2 className={styles.label}>Channel Name:</h2>
-                  <Input
-                    className={styles.datalistinputfield}
-                    onChange={(e) => setChannelName(e.target.value)}
-                    autoComplete="off"
-                    required={true}
-                    onBlur={handleChannelNameChange}
-                  />
-                  <h2 className={styles.label}>Members:</h2>
-                  <Btn
-                    className={styles.button}
-                    content={"Add"}
-                    onClick={() => addChannelMembers()}
-                    type="button"
-                  />
-                </div>
-                {channelMembers.map((element, index) => (
-                  <>
-                    <Input
-                      key={index}
-                      name="user_ids"
-                      list="userlist"
-                      className={styles.datalistinputfield}
-                      value={element.user_ids || ""}
-                      onChange={(e) => handleChange(index, e)}
-                      onBlur={(e) => handleBlur(index, e)}
-                      autoComplete="off"
-                      required={true}
-                    />
-                    <datalist id="userlist">
-                      <UserListGenerator usersArray={usersList} />
-                    </datalist>
-                  </>
-                ))}
-
-                <Btn
-                  className={styles.button}
-                  content={"Add Channel"}
-                  type={"submit"}
-                />
-              </form>
-            </>
-          )}
+          <i
+            id={styles.close}
+            onClick={closePopUp}
+            class="las la-times-circle"
+          ></i>
           {isOpen && (
             <>
-              <h2 className={styles.label}>Send To:</h2>
               <form className={styles.pmform} onSubmit={submitSelectMessenger}>
+                <h2 className={styles.label}>Send To</h2>
                 <Input
                   list="userlist"
                   className={styles.datalistinputfield}
@@ -186,57 +155,119 @@ function PopUp({ updateMe }) {
                 </datalist>
                 <Btn
                   className={styles.button}
-                  content={"Submit"}
+                  content={"Select"}
                   type={"submit"}
                 />
               </form>
             </>
           )}
+          {isOpenChannel && (
+            <>
+              <form className={styles.pmform} onSubmit={submitCreateChannel}>
+                <div className={styles.channelform}>
+                  <div className={styles.channelName}>
+                    <h2 className={styles.label}>Channel Name:</h2>
+                    <Input
+                      className={styles.datalistinputfield}
+                      onChange={(e) => setChannelName(e.target.value)}
+                      autoComplete="off"
+                      required={true}
+                      onBlur={handleChannelNameChange}
+                    />
+                  </div>
+
+                  <div className={styles.channelMembers}>
+                    <h2 className={styles.label}>Members:</h2>
+
+                    {channelMembers.map((element, index) => (
+                      <>
+                        <Input
+                          key={index}
+                          name="user_ids"
+                          list="userlist"
+                          className={styles.datalistinputfield}
+                          value={element.user_ids || ""}
+                          onChange={(e) => handleChange(index, e)}
+                          onBlur={(e) => handleBlur(index, e)}
+                          autoComplete="off"
+                          required={true}
+                        />
+                        <datalist id="userlist">
+                          <UserListGenerator usersArray={usersList} />
+                        </datalist>
+                      </>
+                    ))}
+                    <Btn
+                      className={styles.button}
+                      content={"Add"}
+                      onClick={() => addChannelMembers()}
+                      type="button"
+                    />
+                    <Btn
+                      className={styles.button}
+                      content={"Submit"}
+                      type={"submit"}
+                    />
+                  </div>
+                </div>
+              </form>
+            </>
+          )}
+
           {isOpenChannelMembers && (
             <>
               <div className={styles.channelform}>
-                <ul>
-                  {displayChannelMembers &&
-                    displayChannelMembers.map((element) => (
-                      <li key={element}>{element}</li>
-                    ))}
-                </ul>
-              </div>
-              <form className={styles.pmform} onSubmit={submitAddMembers}>
-                <>
-                  <h2 className={styles.label}>Add Members</h2>
-                  {channelMembers.map((element, index) => (
+                <div className={styles.channelMembers}>
+                  <div className={styles.channelName}>
+                    <h1 className={styles.label}>{messenger}</h1>
+                  </div>
+                  <h2 className={styles.label}>Members:</h2>
+                  <ul className={styles.list}>
+                    {displayChannelMembers &&
+                      displayChannelMembers.map((element, i) => (
+                        <h3>
+                          <li
+                            className={styles.lili}
+                            key={element}
+                            onClick={(e) => selectUserFromMembers(e)}
+                            onMouseOver={(e) => setThisChosenUser(e)}
+                          >
+                            {element}
+                          </li>
+                        </h3>
+                      ))}
+                  </ul>
+                  <form className={styles.pmform} onSubmit={submitAddMembers}>
                     <>
-                      <Input
-                        key={index}
-                        name="user_ids"
-                        list="userlist"
-                        className={styles.datalistinputfield}
-                        value={element.user_ids || ""}
-                        onChange={(e) => handleChange(index, e)}
-                        onBlur={(e) => handleBlur(index, e)}
-                        autoComplete="off"
-                        required={true}
-                      />
-                      <datalist id="userlist">
-                        <UserListGenerator usersArray={usersList} />
-                      </datalist>
+                      {channelMembers.map((element, index) => (
+                        <>
+                          <Input
+                            key={index}
+                            name="user_ids"
+                            list="userlist"
+                            className={styles.datalistinputfield}
+                            value={element.user_ids || ""}
+                            onChange={(e) => handleChange(index, e)}
+                            onBlur={(e) => handleBlur(index, e)}
+                            autoComplete="off"
+                            required={true}
+                          />
+                          <datalist id="userlist">
+                            <UserListGenerator usersArray={usersList} />
+                          </datalist>
+                        </>
+                      ))}
                     </>
-                  ))}
-                </>
-                <Btn
-                  className={styles.button}
-                  content={"Submit"}
-                  type={"submit"}
-                />
-              </form>
+                    <Btn
+                      className={styles.button}
+                      content={"Add"}
+                      type={"submit"}
+                    />
+                  </form>
+                </div>
+              </div>
             </>
           )}
-          <i
-            id={styles.close}
-            onClick={closePopUp}
-            class="las la-times-circle"
-          ></i>
         </div>
       </div>
     </>

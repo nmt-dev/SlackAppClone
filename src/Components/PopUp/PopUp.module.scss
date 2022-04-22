@@ -12,48 +12,119 @@
   justify-content: center;
   align-items: center;
 }
-.channelform {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
 
 .box {
   width: 30%;
   height: auto;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
   background-color: white;
   border-radius: 8px;
-}
-.pmform {
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
+  background-image: linear-gradient(-225deg, #fffeff 0%, #d7fffe 100%);
 }
 
-.list {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  justify-content: center;
-  background-color: pink;
-}
-.label {
+.toplabel {
+  padding-top: 10px;
+  padding-left: 65px;
   font-family: $font-style;
 }
 
-#close {
-  font-size: 20px;
+.pmform {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  padding-bottom: 25px;
+  align-items: center;
+}
+.label {
+  font-family: $font-style;
+  color: $evenhandlers-color;
+}
+
+.datalistinputfield {
+  margin: 5px;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  outline: none;
+  background-color: transparent;
+}
+
+.button {
   position: relative;
-  bottom: 15px;
-  left: 45px;
+  background-color: $evenhandlers-color;
+  border-radius: 100px;
+  box-shadow: rgba(44, 187, 99, 0.2) 0 -25px 18px -14px inset,
+    rgba(44, 187, 99, 0.15) 0 1px 2px, rgba(44, 187, 99, 0.15) 0 2px 4px,
+    rgba(44, 187, 99, 0.15) 0 4px 8px, rgba(44, 187, 99, 0.15) 0 8px 16px,
+    rgba(44, 187, 99, 0.15) 0 16px 32px;
+  color: $text-color;
+  cursor: pointer;
+  display: inline-block;
+  font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button:hover {
+  box-shadow: rgba(44, 187, 99, 0.35) 0 -25px 18px -14px inset,
+    rgba(44, 187, 99, 0.25) 0 1px 2px, rgba(44, 187, 99, 0.25) 0 2px 4px,
+    rgba(44, 187, 99, 0.25) 0 4px 8px, rgba(44, 187, 99, 0.25) 0 8px 16px,
+    rgba(44, 187, 99, 0.25) 0 16px 32px;
+  transform: scale(1.05) rotate(-1deg);
+}
+
+.channelName {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: $evenhandlers-color;
+  font-style: italic;
+  list-style-type: none;
+  padding-left: 0px;
+}
+.lili {
+  background-color: $evenhandlers-color;
+  color: white;
+  margin: 2px;
+  padding: 5px;
+  border-radius: 4px;
+  width: fit-content;
+  font-family: $font-style;
+}
+
+.lili:hover {
+  cursor: pointer;
+}
+
+#close {
+  display: flex;
+  align-self: flex-end;
+  font-size: 30px;
   color: $evenhandlers-color;
   cursor: pointer;
   border-radius: 50%;
 }
 
-.datalistinputfield {
-  margin: 5px;
+.channelform {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.error {
+  color: red;
 }

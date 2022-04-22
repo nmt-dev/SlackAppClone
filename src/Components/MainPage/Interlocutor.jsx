@@ -24,8 +24,7 @@ function Kausap({ update }) {
     let newwww = channelMembers.map((obj) => obj.user_id);
     let membersEmails = usersList
       .filter((obj) => newwww.includes(obj.id))
-      .map((obj) => obj.email)
-      .map(nameFormatter);
+      .map((obj) => obj.email);
     console.log(membersEmails);
     setIsOpenChannelMembers(true);
     console.log("add members open");
